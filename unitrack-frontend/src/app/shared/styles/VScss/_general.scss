@@ -66,6 +66,18 @@ input, textarea, select {
     grid-template-columns: repeat(15, 1fr);
 }
 
+.grid-12 {
+    grid-column-start: 1;
+    grid-column-end: 12;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.grid-6 {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-template-columns: repeat(6, 1fr);
+}
+
 .no-gap {
 	grid-gap: 0;
 }
@@ -94,6 +106,24 @@ input, textarea, select {
 
 		@each $name2, $size2 in $grid {
 			[class~="#{$name}:grid-col-#{$name2}"]  { grid-column: span #{$size2} }
+		}
+
+		[class~="#{$name}:grid-15"] {
+			grid-column-start: 1;
+			grid-column-end: 15;
+			grid-template-columns: repeat(15, 1fr);
+		}
+
+		[class~="#{$name}:grid-12"] {
+			grid-column-start: 1;
+			grid-column-end: 12;
+			grid-template-columns: repeat(12, 1fr);
+		}
+
+		[class~="#{$name}:grid-6"] {
+			grid-column-start: 1;
+			grid-column-end: 6;
+			grid-template-columns: repeat(6, 1fr);
 		}
 	}
 }

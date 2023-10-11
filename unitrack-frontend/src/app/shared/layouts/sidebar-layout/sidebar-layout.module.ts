@@ -18,6 +18,13 @@ const routes: Route[] = [
 						'src/app/pages/cuentas/listado-cuentas/listado-cuentas.module'
 					).then((m) => m.ListadoCuentasModule),
 			},
+			{
+				path: 'movimientos',
+				loadChildren: () =>
+					import(
+						'src/app/pages/flujo-caja/listado-movimientos/listado-movimientos.module'
+					).then((m) => m.ListadoMovimientosModule),
+			},
 		],
 	},
 ];

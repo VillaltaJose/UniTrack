@@ -9,4 +9,13 @@ export class SidebarLayoutComponent {
 
 	isSidebarOpen: boolean = true
 
+	constructor() {
+		this.isSidebarOpen = localStorage.getItem('isSidebarOpen') === 'true'
+	}
+
+	changeStorageMenuState(state: boolean) {
+		localStorage.setItem('isSidebarOpen', `${state}`)
+		this.isSidebarOpen = state
+	}
+
 }

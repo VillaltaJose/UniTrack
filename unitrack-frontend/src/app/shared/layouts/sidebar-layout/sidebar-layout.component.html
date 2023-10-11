@@ -1,14 +1,14 @@
 <div class="w-screen h-screen flex flex-no-wrap">
 
 	<div class="h-full overflow-auto" [style.width]="isSidebarOpen ? '25rem' : '6rem'">
-		<app-sidebar [(opened)]="isSidebarOpen"></app-sidebar>
+		<app-sidebar [opened]="isSidebarOpen" (openedChange)="changeStorageMenuState($event)"></app-sidebar>
 	</div>
 
 	<div class="w-full h-full flex flex-no-wrap" style="flex-direction: column;">
 		<div class="w-full border-b-1 border-solid border-theme-bluegray-300 h-50 flex items-center flex-no-wrap justify-between">
 			<div class="px-10 py-10">
 				<button nz-button nzType="text"
-					(click)="isSidebarOpen = !isSidebarOpen">
+					(click)="changeStorageMenuState(!isSidebarOpen)">
 					<span nz-icon nzType="menu" nzTheme="outline"></span>
 				</button>
 			</div>
