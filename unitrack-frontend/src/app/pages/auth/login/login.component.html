@@ -1,0 +1,32 @@
+<div class="w-screen h-screen grid no-gap">
+	<div class="grid-col-7 bg-theme-bluegray-200">
+
+	</div>
+
+	<div class="grid-col-5 p-20 flex items-center justify-center">
+
+		<form [formGroup]="form" class="w-full grid" style="max-width: 42rem;">
+			<div class="grid-col-12">
+				<h1 class="font-bold w-full display-block m-0">Iniciar Sesión</h1>
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-5">Correo electrónico</p>
+				<input nz-input formControlName="correo" class="w-full" type="text">
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-5">Contraseña</p>
+				<input nz-input formControlName="clave" class="w-full" type="text">
+			</div>
+
+			<div class="grid-col-12">
+				<button nz-button nzType="primary" class="w-full" type="button"
+					(click)="iniciarSesion()">Acceder</button>
+
+				<a href="#" class="text-theme-black-200 display-block text-center m-0 mt-15">Olvidé mi contraseña</a>
+			</div>
+		</form>
+
+	</div>
+</div>
