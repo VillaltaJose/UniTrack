@@ -6,6 +6,12 @@
 	<div class="grid-col-5 p-20 flex items-center justify-center">
 
 		<form [formGroup]="form" class="w-full grid" style="max-width: 42rem;">
+			<ng-container *ngIf="isDevMode">
+				<div class="grid-col-12">
+					<p class="display-inlineblock m-0 rounded-sm border-1 border-solid border-orange-500 text-sm text-orange-500 px-7 py-5 bg-orangegray">Modo de desarrollo</p>
+				</div>
+			</ng-container>
+
 			<div class="grid-col-12">
 				<img src="./assets/branding/logo.svg" class="display-block m-0 mb-7 h-40">
 				<h1 class="font-bold w-full display-block m-0">Iniciar Sesión</h1>

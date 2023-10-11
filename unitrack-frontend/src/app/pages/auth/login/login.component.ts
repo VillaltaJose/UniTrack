@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, isDevMode } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
 
 	form: FormGroup;
+	isDevMode = isDevMode();
 
 	constructor() {
 		this.form = new FormGroup({
