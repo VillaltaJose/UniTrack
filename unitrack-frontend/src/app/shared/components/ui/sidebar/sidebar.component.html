@@ -1,0 +1,31 @@
+<div class="w-full h-full bg-theme-bluegray-100 border-r-1 border-solid border-theme-bluegray-300 pb-20 pt-15">
+
+	<div class="w-full px-10 mb-10">
+		<img [src]="opened ? './assets/branding/logo-horizontal.svg' : './assets/branding/logo.svg'"
+			[ngClass]="{'pl-7': !opened}"
+			class="display-block m-0 h-30 mx-auto">
+	</div>
+
+	<div class="w-full py-15">
+
+		<a href="#" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+			[ngClass]="{'justify-center': !opened}">
+			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+				<span nz-icon nzType="home" nzTheme="fill"></span>
+			</div>
+
+			<p *ngIf="opened" class="display-block m-0">Inicio</p>
+		</a>
+
+		<a href="#" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+			[ngClass]="{'justify-center': !opened}">
+			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+				<span nz-icon nzType="bank" nzTheme="fill"></span>
+			</div>
+
+			<p *ngIf="opened" class="display-block m-0">Cuentas</p>
+		</a>
+
+	</div>
+
+</div>

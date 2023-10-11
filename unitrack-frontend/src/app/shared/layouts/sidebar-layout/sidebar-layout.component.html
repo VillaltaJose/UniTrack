@@ -1,0 +1,29 @@
+<div class="w-screen h-screen flex flex-no-wrap">
+
+	<div class="h-full overflow-auto" [style.width]="isSidebarOpen ? '25rem' : '6rem'">
+		<app-sidebar [(opened)]="isSidebarOpen"></app-sidebar>
+	</div>
+
+	<div class="w-full h-full flex flex-no-wrap" style="flex-direction: column;">
+		<div class="w-full border-b-1 border-solid border-theme-bluegray-300 h-50 flex items-center flex-no-wrap justify-between">
+			<div class="px-10 py-10">
+				<button nz-button nzType="text"
+					(click)="isSidebarOpen = !isSidebarOpen">
+					<span nz-icon nzType="menu" nzTheme="outline"></span>
+				</button>
+			</div>
+
+			<div class="p-10">
+				<div class="flex items-center flex-no-wrap">
+					<img src="https://randomuser.me/api/portraits/men/31.jpg" class="m-0 h-30 w-30 display-block mr-7 rounded-full">
+					<p class="display-block text-smd m-0">Nombre Usuario</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="w-full overflow-auto" style="height: calc(100% - 5rem);">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+
+</div>

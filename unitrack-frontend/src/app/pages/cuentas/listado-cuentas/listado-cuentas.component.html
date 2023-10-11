@@ -1,0 +1,35 @@
+<div class="w-full p-20 pt-15">
+
+	<div class="w-full flex items-center flex-no-wrap justify-between mb-10">
+		<h2 class="font-bold text-theme-primary display-block m-0">Cuentas bancarias</h2>
+
+		<div>
+			<button nz-button nzType="primary" class="btn-black">
+				<span nz-icon nzType="plus" nzTheme="outline"></span>
+				Nueva Cuenta
+			</button>
+		</div>
+	</div>
+
+	<nz-table #nzTable nzSize="small" [nzData]="[1,1,1]" [nzPageSize]="10">
+		<thead>
+			<tr>
+				<th>Institución</th>
+				<th>Nro. Cuenta</th>
+				<th>CI. Asociado</th>
+				<th>Tipo</th>
+				<th>Saldo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let i of nzTable.data">
+				<td>Banco Pichincha</td>
+				<td>12345678</td>
+				<td>0123456789</td>
+				<td>Ahorros</td>
+				<td>{{ 10 | currency }}</td>
+			</tr>
+		</tbody>
+	</nz-table>
+
+</div>
