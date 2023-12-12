@@ -17,6 +17,10 @@
 				<h1 class="font-bold w-full display-block m-0">Iniciar Sesión</h1>
 			</div>
 
+			<div *ngIf="error" class="grid-col-12 border-1 border-solid bg-redgray px-10 py-7 border-red-600 rounded-sm">
+				<p class="display-block m-0 text-red-800">{{ error }}</p>
+			</div>
+
 			<div class="grid-col-12">
 				<p class="display-block m-0 mb-5">Correo electrónico</p>
 				<input nz-input formControlName="correo" class="w-full" type="text">
@@ -24,11 +28,12 @@
 
 			<div class="grid-col-12">
 				<p class="display-block m-0 mb-5">Contraseña</p>
-				<input nz-input formControlName="clave" class="w-full" type="text">
+				<input nz-input formControlName="clave" class="w-full" type="password">
 			</div>
 
 			<div class="grid-col-12">
 				<button nz-button nzType="primary" class="w-full" type="button"
+					[nzLoading]="loading"
 					(click)="iniciarSesion()">Acceder</button>
 
 				<a href="#" class="text-theme-black-200 display-block text-center m-0 mt-15">Olvidé mi contraseña</a>
