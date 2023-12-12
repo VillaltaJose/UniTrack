@@ -9,6 +9,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { VerProyectoModule } from '../ver-proyecto/ver-proyecto.module';
 
 @NgModule({
 	declarations: [ListadoProyectosComponent],
@@ -22,6 +23,7 @@ import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
 		NzToolTipModule,
 		NzDatePickerModule,
 		NzDrawerModule,
+		VerProyectoModule,
 	],
 	providers: [
 		NzDrawerService,

@@ -67,7 +67,7 @@
 						<td>{{ fecha | date:'dd-MM-yyyy' }}</td>
 						<td>{{ fecha | date:'dd-MM-yyyy hh:mm' }}</td>
 						<td class="min-size">
-							<button nz-button nz-tooltip nzTooltipTitle="Más información" nzType="text" nzSize="small">
+							<button (click)="abrirDrawerProyecto(1)" nz-button nz-tooltip nzTooltipTitle="Más información" nzType="text" nzSize="small">
 								<span nz-icon nzType="eye" nzTheme="outline"></span>
 							</button>
 						</td>
