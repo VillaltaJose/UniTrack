@@ -9,7 +9,9 @@ export class AuthService {
 	client: SupabaseClient = this._supabase.client;
 	_session: AuthSession | null = null;
 
-	constructor(private _supabase: SupabaseService) {}
+	constructor(private _supabase: SupabaseService) {
+		this.session;
+	}
 
 	get session() {
 		this.client.auth.getSession().then(({ data }) => {
@@ -19,9 +21,10 @@ export class AuthService {
 	}
 
 	profile(user: User) {
+		console.log(user.id)
 		return this.client
-			.from('profiles')
-			.select(`username, website, avatar_url`)
+			.from('perfiles')
+			.select(`nombre, avatar_url`)
 			.eq('id', user.id)
 			.single();
 	}
