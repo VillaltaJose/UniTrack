@@ -44,6 +44,7 @@
 						<th>Realizado por</th>
 						<th>Cuenta</th>
 						<th>Monto</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,6 +64,11 @@
 						</td>
 						<td>Gastos Generales</td>
 						<td [ngClass]="{'text-green': 10 >= 0, 'text-red': 10 < 0}">{{ 10 | currency }}</td>
+						<td class="min-size">
+							<button nz-tooltip nzTooltipTitle="Ver factura" nz-button nzType="text" nzSize="small">
+								<span nz-icon nzType="file-text" nzTheme="outline"></span>
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</nz-table>
