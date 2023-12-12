@@ -36,6 +36,11 @@
 	--background-alt: #747474;
 }
 
+.btn-bluegray {
+	--background: #6f7d94;
+	--background-alt: #97a9c5;
+}
+
 form .ng-invalid.ng-touched {
 	&, & nz-select-top-control{
 		border-color: #ff3f67 !important;

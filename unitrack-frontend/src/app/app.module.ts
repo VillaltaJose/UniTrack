@@ -10,23 +10,23 @@ import es from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 
 registerLocaleData(es);
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule
-  ],
-  providers: [
-    { provide: NZ_I18N, useValue: es_ES }
-  ],
-  bootstrap: [AppComponent]
+	declarations: [AppComponent],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		FormsModule,
+		HttpClientModule,
+		BrowserAnimationsModule,
+	],
+	providers: [
+		{ provide: NZ_I18N, useValue: es_ES },
+		NzDrawerService,
+	],
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
