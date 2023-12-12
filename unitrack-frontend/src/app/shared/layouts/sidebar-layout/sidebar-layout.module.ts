@@ -12,6 +12,13 @@ const routes: Route[] = [
 		component: SidebarLayoutComponent,
 		children: [
 			{
+				path: 'inicio',
+				loadChildren: () =>
+					import(
+						'src/app/pages/inicio/inicio.module'
+					).then((m) => m.InicioModule),
+			},
+			{
 				path: 'cuentas',
 				loadChildren: () =>
 					import(
