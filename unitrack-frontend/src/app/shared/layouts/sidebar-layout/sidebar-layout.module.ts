@@ -25,6 +25,13 @@ const routes: Route[] = [
 						'src/app/pages/flujo-caja/listado-movimientos/listado-movimientos.module'
 					).then((m) => m.ListadoMovimientosModule),
 			},
+			{
+				path: 'proyectos',
+				loadChildren: () =>
+					import(
+						'src/app/pages/proyectos/listado-proyectos/listado-proyectos.module'
+					).then((m) => m.ListadoProyectosModule),
+			},
 		],
 	},
 ];

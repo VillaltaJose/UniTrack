@@ -8,7 +8,7 @@
 
 	<div class="w-full py-15">
 
-		<a href="#" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+		<a routerLink="inicio" nz-tooltip [nzTooltipTitle]="!opened ? 'Inicio' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
 			[ngClass]="{'justify-center': !opened}">
 			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
 				<span nz-icon nzType="home" nzTheme="fill"></span>
@@ -17,7 +17,7 @@
 			<p *ngIf="opened" class="display-block m-0">Inicio</p>
 		</a>
 
-		<a href="#" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+		<a routerLink="cuentas" nz-tooltip [nzTooltipTitle]="!opened ? 'Cuentas' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
 			[ngClass]="{'justify-center': !opened}">
 			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
 				<span nz-icon nzType="bank" nzTheme="fill"></span>
@@ -26,13 +26,22 @@
 			<p *ngIf="opened" class="display-block m-0">Cuentas</p>
 		</a>
 
-		<a href="#" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+		<a routerLink="movimientos" nz-tooltip [nzTooltipTitle]="!opened ? 'Movimientos' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
 			[ngClass]="{'justify-center': !opened}">
 			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
 				<span nz-icon nzType="retweet" nzTheme="outline"></span>
 			</div>
 
 			<p *ngIf="opened" class="display-block m-0">Movimientos</p>
+		</a>
+
+		<a routerLink="proyectos" nz-tooltip [nzTooltipTitle]="!opened ? 'Proyectos' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+			[ngClass]="{'justify-center': !opened}">
+			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+				<span nz-icon nzType="project" nzTheme="outline"></span>
+			</div>
+
+			<p *ngIf="opened" class="display-block m-0">Proyectos</p>
 		</a>
 
 	</div>
