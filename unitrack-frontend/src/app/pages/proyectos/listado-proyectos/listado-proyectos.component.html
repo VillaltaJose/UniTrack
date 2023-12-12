@@ -1,0 +1,80 @@
+<div class="w-full grid no-gap h-full">
+
+	<div class="grid-col-2 md:grid-col-3 sm:grid-col-12 h-full sm:h-auto border-r-1 border-solid border-theme-bluegray-300 overflow-auto p-15">
+		<div class="w-full grid gap-15 grid-6 sm:grid-12">
+			<div class="grid-col-12 sm:grid-col-4 xs:grid-col-12">
+				<p class="display-block m-0 mb-5">Nombre</p>
+				<input nz-input type="text" class="w-full">
+			</div>
+
+			<div class="grid-col-12 sm:grid-col-4 xs:grid-col-12">
+				<p class="display-block m-0 mb-5">Fecha de inicio</p>
+				<nz-date-picker class="w-full"></nz-date-picker>
+			</div>
+
+			<div class="grid-col-12 sm:grid-col-4 xs:grid-col-12">
+				<p class="display-block m-0 mb-5">Fecha de fin</p>
+				<nz-date-picker class="w-full"></nz-date-picker>
+			</div>
+
+			<div class="grid-col-12 sm:grid-col-4 xs:grid-col-12">
+				<button nz-button nzType="primary" class="w-full">Consultar</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="grid-col-10 md:grid-col-9 sm:grid-col-12 p-20 pt-15 overflow-auto">
+		<div class="w-full">
+			<div class="w-full flex items-center flex-no-wrap justify-between mb-10">
+				<h2 class="font-bold text-theme-primary display-block m-0">Proyectos</h2>
+
+				<div>
+					<button nz-button nzType="primary" class="btn-black">
+						<span nz-icon nzType="plus" nzTheme="outline"></span>
+						Nuevo Proyecto
+					</button>
+				</div>
+			</div>
+
+			<nz-table #nzTable nzSize="small" [nzData]="[1,1,1]" [nzPageSize]="10">
+				<thead>
+					<tr>
+						<th style="text-align: center;">ID</th>
+						<th>Nombre</th>
+						<th>Creador por</th>
+						<th>Fecha inicio</th>
+						<th>Fecha fin</th>
+						<th>Ult. Actualización</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let i of nzTable.data">
+						<td class="text-center font-medium min-size px-5">1234</td>
+						<td>
+							<div class="flex items-center flex-no-wrap">
+								<img src="https://api.dicebear.com/7.x/initials/svg?seed=Proyecto%201" class="display-block m-0 mr-7 rounded-sm w-30 h-30">
+								<p class="display-block m-0">Nombre proyecto</p>
+							</div>
+						</td>
+						<td>
+							<div class="flex items-center flex-no-wrap">
+								<img src="https://api.dicebear.com/7.x/initials/svg?seed=Nombre%20Persona" class="display-block m-0 mr-7 rounded-full w-30 h-30">
+								<p class="display-block m-0">Nombre Persona</p>
+							</div>
+						</td>
+						<td>{{ fecha | date:'dd-MM-yyyy' }}</td>
+						<td>{{ fecha | date:'dd-MM-yyyy' }}</td>
+						<td>{{ fecha | date:'dd-MM-yyyy hh:mm' }}</td>
+						<td class="min-size">
+							<button nz-button nz-tooltip nzTooltipTitle="Más información" nzType="text" nzSize="small">
+								<span nz-icon nzType="eye" nzTheme="outline"></span>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</nz-table>
+		</div>
+	</div>
+
+</div>
