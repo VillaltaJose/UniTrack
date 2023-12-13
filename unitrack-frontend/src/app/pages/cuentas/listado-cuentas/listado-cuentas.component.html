@@ -3,7 +3,11 @@
 	<div class="w-full flex items-center flex-no-wrap justify-between mb-10">
 		<h2 class="font-bold text-theme-primary display-block m-0">Cuentas bancarias</h2>
 
-		<div>
+		<div class="flex items-center flex-no-wrap" style="gap: 1.5rem">
+			<button nz-button [nzLoading]="loading" (click)="obtenerCuentas()">
+				<span nz-icon nzType="reload" nzTheme="outline"></span>
+			</button>
+
 			<button (click)="abrirDrawerNuevaCuenta()" nz-button nzType="primary" class="btn-black">
 				<span nz-icon nzType="plus" nzTheme="outline"></span>
 				Nueva Cuenta
