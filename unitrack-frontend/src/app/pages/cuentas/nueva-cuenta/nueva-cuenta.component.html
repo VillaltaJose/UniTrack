@@ -4,6 +4,10 @@
 		<h3 class="font-bold display-block m-0">Nueva cuenta bancaria</h3>
 	</div>
 
+	<div *ngIf="error" class="grid-col-12 border-1 border-solid border-red-700 rounded-sm bg-redgray px-10 py-7">
+		<p class="display-block m-0 text-red-800">{{ error }}</p>
+	</div>
+
 	<div class="grid-col-12">
 		<p class="display-block m-0 mb-5">Institución</p>
 		<nz-select class="w-full" nzShowSearch nzServerSearch (nzOnSearch)="obtenerInstituciones($event)" [nzFilterOption]="nzFilterOption"
