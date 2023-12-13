@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { TIPOS_CUENTAS } from 'src/app/shared/constants/tipos_cuentas';
+import { CuentasService } from 'src/app/shared/services/cuentas.service';
 import { SupabaseService } from 'src/app/shared/services/supabase.service';
 
 @Component({
@@ -26,10 +27,10 @@ export class NuevaCuentaComponent {
 	constructor(
 		private _supabase: SupabaseService,
 		private _drawerRef: NzDrawerRef,
+		private _cuentaService: CuentasService,
 	) {
 		this.form = new FormGroup({
 			id_institucion: new FormControl(null, [Validators.required]),
-			id_directiva: new FormControl(null, []),
 			alias: new FormControl(null, [Validators.required]),
 			numero_cuenta: new FormControl(null, [Validators.required]),
 			id_propietario: new FormControl(null, [Validators.required]),
@@ -71,11 +72,9 @@ export class NuevaCuentaComponent {
 		this.loading.guardar = true
 
 		const cuenta = this.form.getRawValue()
-		cuenta.id_directiva = '33aef518-aa0e-469f-967e-45954733d9bb'
 		cuenta.saldo = cuenta.saldo_inicial
 
-		const { error } = await this._supabase.client.from('cuentas')
-			.insert(cuenta)
+		const { error } = await this._cuentaService.agregarCuenta(cuenta)
 
 		if (error) {
 			this.error = error.message
