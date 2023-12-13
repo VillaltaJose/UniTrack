@@ -48,11 +48,11 @@
 	<div class="grid-col-12 border-t-1 border-solid border-theme-bluegray-400"></div>
 
 	<div class="grid-col-6">
-		<button type="button" (click)="crearCuenta()" nz-button class="w-full" nzType="primary">Guardar cuenta</button>
+		<button type="button" [nzLoading]="loading.guardar" (click)="crearCuenta()" nz-button class="w-full" nzType="primary">Guardar cuenta</button>
 	</div>
 
 	<div class="grid-col-6">
-		<button nz-button class="w-full btn-bluegray btn-custom" nzType="primary">Cancelar</button>
+		<button nz-button [disabled]="loading.guardar" class="w-full btn-bluegray btn-custom" nzType="primary">Cancelar</button>
 	</div>
 
 </form>

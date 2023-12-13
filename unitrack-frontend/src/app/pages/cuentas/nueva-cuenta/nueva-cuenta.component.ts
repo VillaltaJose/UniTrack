@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FunctionsHttpError } from '@supabase/supabase-js';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { TIPOS_CUENTAS } from 'src/app/shared/constants/tipos_cuentas';
 import { CuentasService } from 'src/app/shared/services/cuentas.service';
@@ -74,10 +75,11 @@ export class NuevaCuentaComponent {
 		const cuenta = this.form.getRawValue()
 		cuenta.saldo = cuenta.saldo_inicial
 
-		const { error } = await this._cuentaService.agregarCuenta(cuenta)
+		const { data, error } = await this._cuentaService.agregarCuenta(cuenta)
 
 		if (error) {
 			this.error = error.message
+
 			return
 		}
 

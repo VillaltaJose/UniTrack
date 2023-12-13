@@ -1,7 +1,7 @@
+import { SupabaseProvider } from './../_shared/client.ts';
+import { okResponse, errorResponse } from './../_shared/responses.ts';
 import { corsHeaders } from '../_shared/cors.ts'
-import { createClient } from "https://esm.sh/@supabase/supabase-js";
 
-let client: SupabaseClient = null;
 
 Deno.serve(async (req: Request) => {
 	if (req.method === "OPTIONS") {
@@ -9,14 +9,14 @@ Deno.serve(async (req: Request) => {
 	}
 
 	try {
-		client = createClient(Deno.env.get("URL") ?? '', Deno.env.get("ANON_KEY") ?? '');
+		const supabase = new SupabaseProvider(Deno.env.get("URL") ?? '', Deno.env.get("ANON_KEY") ?? '');
 
 		const global = {
 			idDirectiva: req.headers.get('Id-Directiva'),
-			session: (await client.auth.getUser(req.headers.get('Authorization')!.replace('Bearer ', ''))).data.user
+			session: (await supabase.client.auth.getUser(req.headers.get('Authorization')!.replace('Bearer ', ''))).data.user
 		}
 
-		const tienePermiso = await verificarPermiso(global.idDirectiva, global.session.id, '6c1f989f-5e26-4317-89a8-fcedd8890fa0');
+		const tienePermiso = await supabase.verificarPermiso(global.idDirectiva, global.session.id, '6c1f989f-5e26-4317-89a8-fcedd8890fa0');
 
 		if (!tienePermiso) {
 			return new Response(String('No tiene permiso para visualizar las cuentas financieras de la directiva'), {
@@ -25,7 +25,7 @@ Deno.serve(async (req: Request) => {
 			});
 		}
 
-		const { data, error } = await client.from('cuentas')
+		const { data, error } = await supabase.client.from('cuentas')
 			.select(`
 				id,
 				alias,
@@ -44,28 +44,9 @@ Deno.serve(async (req: Request) => {
 			throw error;
 		}
 
-		return new Response(JSON.stringify(data), {
-			headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-			status: 200,
-		});
+		return okResponse(data);
 	} catch (err) {
-		return new Response(JSON.stringify({ error: err.message }), {
-			headers: { ...corsHeaders, "Content-Type": "application/json" },
-			status: 400,
-		});
+		console.error(err)
+		return errorResponse(err.message || err.details || JSON.stringify(err))
 	}
 });
-
-const verificarPermiso = async (idDirectiva, idUsuario, idPermiso) => {
-	if (!client) return false
-
-	const { data, error } = await client.rpc('verificar_permiso', {
-		pv_id_directiva: idDirectiva,
-		pv_id_usuario: idUsuario,
-		pv_id_permiso: idPermiso
-	}).select('*')
-
-	if (error) return false
-		
-	return data.length > 0
-}
