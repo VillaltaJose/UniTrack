@@ -11,7 +11,7 @@
 		</div>
 	</div>
 
-	<nz-table #nzTable nzSize="small" [nzData]="[1,1,1]" [nzPageSize]="10">
+	<nz-table #nzTable nzSize="small" [nzData]="cuentas" [nzPageSize]="15" [nzLoading]="loading">
 		<thead>
 			<tr>
 				<th>Institución</th>
@@ -23,13 +23,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr *ngFor="let i of nzTable.data">
-				<td>Banco Pichincha</td>
-				<td>Ahorros generales</td>
-				<td>12345678</td>
-				<td>0123456789</td>
-				<td>Ahorros</td>
-				<td>{{ 10 | currency }}</td>
+			<tr *ngFor="let c of nzTable.data">
+				<td>{{ c.institucion.nombre | titlecase }}</td>
+				<td>{{ c.alias }}</td>
+				<td>{{ c.numero_cuenta }}</td>
+				<td>{{ c.id_propietario }}</td>
+				<td>{{ c.tipo_cuenta == 1 ? 'Ahorros' : 'Corriente' }}</td>
+				<td>{{ c.saldo | currency }}</td>
 			</tr>
 		</tbody>
 	</nz-table>

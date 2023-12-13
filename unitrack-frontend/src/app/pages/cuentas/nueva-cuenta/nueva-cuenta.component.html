@@ -6,45 +6,45 @@
 
 	<div class="grid-col-12">
 		<p class="display-block m-0 mb-5">Institución</p>
-		<nz-select class="w-full">
-			<nz-option *ngFor="let item of [1,1,1,1]" nzLabel="Banco Pichincha" [nzValue]="item">
+		<nz-select class="w-full" nzShowSearch nzServerSearch (nzOnSearch)="obtenerInstituciones($event)" [nzFilterOption]="nzFilterOption"
+			formControlName="id_institucion" [nzLoading]="loading.instituciones">
+			<nz-option *ngFor="let i of instituciones" [nzLabel]="i.nombre" [nzValue]="i.id">
 			</nz-option>
 		</nz-select>
-
 	</div>
 
 	<div class="grid-col-12">
 		<p class="display-block m-0 mb-5">Alias</p>
-		<input type="text" nz-input placeholder="Ej. Cuenta de José" />
+		<input type="text" nz-input formControlName="alias" placeholder="Ej. Cuenta de José" />
 	</div>
 
 	<div class="grid-col-6">
 		<p class="display-block m-0 mb-5">Nro. Cuenta</p>
-		<input type="text" nz-input placeholder="0000000" />
+		<input type="text" nz-input formControlName="numero_cuenta" placeholder="0000000" />
 	</div>
 
 	<div class="grid-col-6">
 		<p class="display-block m-0 mb-5">CI. Asociado</p>
-		<input type="text" nz-input placeholder="0000000000" />
+		<input type="text" nz-input formControlName="id_propietario" placeholder="0000000000" />
 	</div>
 
 	<div class="grid-col-6">
 		<p class="display-block m-0 mb-5">Tipo de cuenta</p>
-		<nz-select class="w-full">
-			<nz-option *ngFor="let item of ['Ahorros', 'Corriente']" [nzLabel]="item" [nzValue]="item">
+		<nz-select class="w-full" formControlName="tipo_cuenta">
+			<nz-option *ngFor="let i of tiposCuentas" [nzLabel]="i.nombre" [nzValue]="i.id">
 			</nz-option>
 		</nz-select>
 	</div>
 
 	<div class="grid-col-6">
 		<p class="display-block m-0 mb-5">Saldo Inicial</p>
-		<input type="number" nz-input placeholder="0.00" />
+		<input type="number" nz-input formControlName="saldo_inicial" placeholder="0.00" />
 	</div>
 
 	<div class="grid-col-12 border-t-1 border-solid border-theme-bluegray-400"></div>
 
 	<div class="grid-col-6">
-		<button nz-button class="w-full" nzType="primary">Guardar cuenta</button>
+		<button type="button" (click)="crearCuenta()" nz-button class="w-full" nzType="primary">Guardar cuenta</button>
 	</div>
 
 	<div class="grid-col-6">

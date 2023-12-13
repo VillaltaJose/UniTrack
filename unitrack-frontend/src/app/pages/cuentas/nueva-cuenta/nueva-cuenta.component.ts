@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { TIPOS_CUENTAS } from 'src/app/shared/constants/tipos_cuentas';
+import { SupabaseService } from 'src/app/shared/services/supabase.service';
 
 @Component({
 	selector: 'app-nueva-cuenta',
@@ -9,9 +12,77 @@ import { FormGroup } from '@angular/forms';
 export class NuevaCuentaComponent {
 
 	form: FormGroup
+	instituciones: any[] | null = []
+	nzFilterOption = (): boolean => true;
 
-	constructor() {
-		this.form = new FormGroup({})
+	tiposCuentas = TIPOS_CUENTAS
+
+	error: string | null = null
+	loading = {
+		guardar: false,
+		instituciones: false,
+	}
+
+	constructor(
+		private _supabase: SupabaseService,
+		private _drawerRef: NzDrawerRef,
+	) {
+		this.form = new FormGroup({
+			id_institucion: new FormControl(null, [Validators.required]),
+			id_directiva: new FormControl(null, []),
+			alias: new FormControl(null, [Validators.required]),
+			numero_cuenta: new FormControl(null, [Validators.required]),
+			id_propietario: new FormControl(null, [Validators.required]),
+			tipo_cuenta: new FormControl(null, [Validators.required]),
+			saldo_inicial: new FormControl(null, [Validators.required]),
+			saldo: new FormControl(null, []),
+		})
+	}
+
+	async obtenerInstituciones(busqueda: string) {
+		if (busqueda.length < 3) return
+
+		this.loading.instituciones = true
+
+		await this._supabase.client.from('instituciones_financieras')
+		.select('id, nombre')
+		.like('nombre', `%${busqueda.toUpperCase()}%`)
+		.then(({ data: instituciones, error }) => {
+			this.loading.instituciones = false
+
+			if (error) {
+				this.error = error.message
+				return
+			}
+
+			this.instituciones = instituciones
+		})
+	}
+
+	async crearCuenta() {
+		this.error = null
+
+		if (this.form.invalid) {
+			this.error = 'Los campos marcados son obligatorios'
+			this.form.markAllAsTouched()
+			return
+		}
+
+		this.loading.guardar = true
+
+		const cuenta = this.form.getRawValue()
+		cuenta.id_directiva = '33aef518-aa0e-469f-967e-45954733d9bb'
+		cuenta.saldo = cuenta.saldo_inicial
+
+		const { error } = await this._supabase.client.from('cuentas')
+			.insert(cuenta)
+
+		if (error) {
+			this.error = error.message
+			return
+		}
+
+		this._drawerRef.close(cuenta)
 	}
 
 }
