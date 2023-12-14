@@ -29,7 +29,8 @@ export class CuentasService {
 	}
 
 	async agregarCuenta(cuenta: any) {
-		const resp = await this._supabase.client.functions.invoke('agregar-cuenta',
+		try {
+			const resp = await this._supabase.client.functions.invoke('agregar-cuenta',
 			{
 				headers: {
 					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
@@ -37,12 +38,17 @@ export class CuentasService {
 				body: cuenta
 			});
 
-		if (resp.error) {
-			const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
-			resp.error.message = errResponse || resp.error.message
-		}
+			console.log(resp)
 
-		return resp
+			if (resp.error) {
+				const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+				resp.error.message = errResponse || resp.error.message
+			}
+
+			return resp
+		} catch (err: any) {
+			return {error: {message: err.toString()}, data: null}
+		}
 	}
 
 }

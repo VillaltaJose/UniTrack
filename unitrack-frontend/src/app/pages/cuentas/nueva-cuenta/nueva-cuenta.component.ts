@@ -76,6 +76,8 @@ export class NuevaCuentaComponent {
 
 		const { data, error } = await this._cuentaService.agregarCuenta(cuenta)
 
+		this.loading.guardar = false
+
 		if (error) {
 			this.error = error.message
 

@@ -13,7 +13,7 @@ export const errorResponse = (error: any, status = 500) => {
 
 export const okResponse = (data: any) => {
 	return new Response(
-		typeof data === 'string' ? data : JSON.stringify(data),
+		JSON.stringify(data),
 		{
 			headers: { ...corsHeaders, "Content-Type": "application/json" },
 			status: 200
