@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
 import { AuthChangeEvent, AuthSession, Session, SupabaseClient, User } from '@supabase/supabase-js';
+import { StorageKeys, StorageService } from './storage.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -9,24 +10,23 @@ export class AuthService {
 	client: SupabaseClient = this._supabase.client;
 	_session: AuthSession | null = null;
 
-	constructor(private _supabase: SupabaseService) {
+	constructor(
+		private _supabase: SupabaseService,
+		private _storage: StorageService,
+	) {
 		this.session;
 	}
 
 	get session() {
 		this.client.auth.getSession().then(({ data }) => {
 			this._session = data.session;
+			this._storage.setStorage(StorageKeys.SESION, this._session);
 		});
 		return this._session;
 	}
 
-	profile(user: User) {
-		console.log(user.id)
-		return this.client
-			.from('perfiles')
-			.select(`nombre, avatar_url`)
-			.eq('id', user.id)
-			.single();
+	profile() {
+		return this._storage.getStorage(StorageKeys.PERFIL);
 	}
 
 	authChanges(

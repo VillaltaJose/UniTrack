@@ -19,9 +19,14 @@ export class StorageService {
 		return JSON.parse(storage);
 	}
 
+	clearStorage() {
+		localStorage.clear()
+	}
+
 }
 
 export enum StorageKeys {
 	SESION = 'SESION',
+	PERFIL = 'PERFIL',
 	ID_DIRECTIVA = 'DIRECTIVA',
 }

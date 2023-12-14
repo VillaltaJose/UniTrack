@@ -15,9 +15,9 @@
 				</div>
 
 				<div class="p-10">
-					<div *ngIf="perfil" class="flex items-center flex-no-wrap">
-						<img [src]="perfil.avatar_url" class="m-0 h-30 w-30 display-block mr-7 rounded-full">
-						<p class="display-block text-smd m-0">{{ perfil.nombre | titlecase }}</p>
+					<div *ngIf="usuario" class="flex items-center flex-no-wrap">
+						<img [src]="usuario.perfil.avatar_url" class="m-0 h-30 w-30 display-block mr-7 rounded-full">
+						<p class="display-block text-smd m-0">{{ usuario.perfil.nombre | titlecase }}</p>
 					</div>
 				</div>
 			</div>

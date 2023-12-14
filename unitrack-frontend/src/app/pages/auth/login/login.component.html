@@ -5,40 +5,62 @@
 
 	<div class="grid-col-5 p-20 flex items-center justify-center">
 
-		<form [formGroup]="form" class="w-full grid" style="max-width: 42rem;">
-			<ng-container *ngIf="isDevMode">
+		<ng-container *ngIf="!directivas || directivas.length <= 1; else tmpSelectDirectiva">
+			<form [formGroup]="form" class="w-full grid" style="max-width: 42rem;">
+				<ng-container *ngIf="isDevMode">
+					<div class="grid-col-12">
+						<p class="display-inlineblock m-0 rounded-sm border-1 border-solid border-orange-500 text-sm text-orange-500 px-7 py-5 bg-orangegray">Modo de desarrollo</p>
+					</div>
+				</ng-container>
+
 				<div class="grid-col-12">
-					<p class="display-inlineblock m-0 rounded-sm border-1 border-solid border-orange-500 text-sm text-orange-500 px-7 py-5 bg-orangegray">Modo de desarrollo</p>
+					<img src="./assets/branding/logo.svg" class="display-block m-0 mb-7 h-40">
+					<h1 class="font-bold w-full display-block m-0">Iniciar Sesión</h1>
 				</div>
-			</ng-container>
 
-			<div class="grid-col-12">
-				<img src="./assets/branding/logo.svg" class="display-block m-0 mb-7 h-40">
-				<h1 class="font-bold w-full display-block m-0">Iniciar Sesión</h1>
-			</div>
+				<div *ngIf="error" class="grid-col-12 border-1 border-solid bg-redgray px-10 py-7 border-red-600 rounded-sm">
+					<p class="display-block m-0 text-red-800">{{ error }}</p>
+				</div>
 
-			<div *ngIf="error" class="grid-col-12 border-1 border-solid bg-redgray px-10 py-7 border-red-600 rounded-sm">
-				<p class="display-block m-0 text-red-800">{{ error }}</p>
-			</div>
+				<div class="grid-col-12">
+					<p class="display-block m-0 mb-5">Correo electrónico</p>
+					<input nz-input formControlName="correo" class="w-full" type="text">
+				</div>
 
-			<div class="grid-col-12">
-				<p class="display-block m-0 mb-5">Correo electrónico</p>
-				<input nz-input formControlName="correo" class="w-full" type="text">
-			</div>
+				<div class="grid-col-12">
+					<p class="display-block m-0 mb-5">Contraseña</p>
+					<input nz-input formControlName="clave" class="w-full" type="password">
+				</div>
 
-			<div class="grid-col-12">
-				<p class="display-block m-0 mb-5">Contraseña</p>
-				<input nz-input formControlName="clave" class="w-full" type="password">
-			</div>
+				<div class="grid-col-12">
+					<button nz-button nzType="primary" class="w-full" type="button"
+						[nzLoading]="loading"
+						(click)="iniciarSesion()">Acceder</button>
 
-			<div class="grid-col-12">
-				<button nz-button nzType="primary" class="w-full" type="button"
-					[nzLoading]="loading"
-					(click)="iniciarSesion()">Acceder</button>
-
-				<a href="#" class="text-theme-black-200 display-block text-center m-0 mt-15">Olvidé mi contraseña</a>
-			</div>
-		</form>
+					<a href="#" class="text-theme-black-200 display-block text-center m-0 mt-15">Olvidé mi contraseña</a>
+				</div>
+			</form>
+		</ng-container>
 
 	</div>
 </div>
+
+<ng-template #tmpSelectDirectiva>
+
+	<div class="w-full grid" style="max-width: 42rem;">
+
+		<div class="grid-col-12">
+			<h3 class="display-block m-0 font-bold">Seleccionar directiva</h3>
+		</div>
+
+		<ng-container *ngFor="let d of directivas">
+			<div (click)="seleccionarDirectiva(d.id_directiva)" class="cursor-pointer hover:bg-gray-100 grid-col-12 border-1 border-solid border-theme-bluegray-400 rounded-sm p-10 flex items-center flex-no-wrap">
+				<img [src]="d.directiva.avatar_url" class="w-50 h-50 mr-10">
+
+				<p class="display-block m-0">{{ d.directiva.nombre }}</p>
+			</div>
+		</ng-container>
+
+	</div>
+
+</ng-template>

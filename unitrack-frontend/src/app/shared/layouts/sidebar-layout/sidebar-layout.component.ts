@@ -11,7 +11,7 @@ export class SidebarLayoutComponent implements OnInit {
 
 	isSidebarOpen: boolean = true
 	session: Session | null = null
-	perfil: any | null = null
+	usuario: any | null = null
 
 	constructor(
 		private _auth: AuthService,
@@ -19,8 +19,8 @@ export class SidebarLayoutComponent implements OnInit {
 		this.isSidebarOpen = localStorage.getItem('isSidebarOpen') === 'true'
 	}
 
-	async ngOnInit() {
-		await this.obtenerSesion()
+	ngOnInit() {
+		this.obtenerSesion()
 	}
 
 	changeStorageMenuState(state: boolean) {
@@ -28,16 +28,12 @@ export class SidebarLayoutComponent implements OnInit {
 		this.isSidebarOpen = state
 	}
 
-	async obtenerSesion() {
+	obtenerSesion() {
 		this.session = this._auth.session
 
 		if (!this.session) return
 
-		const { data, error } = await this._auth.profile(this.session.user)
-
-		if (error) return
-
-		this.perfil = data
+		this.usuario = this._auth.profile()
 	}
 
 }

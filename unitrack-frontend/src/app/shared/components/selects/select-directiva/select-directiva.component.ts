@@ -48,7 +48,7 @@ export class SelectDirectivaComponent extends CommonSelect<string> implements Af
 			nombre
 		`)
 		.eq('activa', true)
-		.eq('reporta_a', idDirectiva)
+		.or(`reporta_a.eq.${idDirectiva},id.eq.${idDirectiva}`)
 
 		this.isLoading = false
 

@@ -1,49 +1,88 @@
-<div class="w-full h-full bg-theme-bluegray-100 border-r-1 border-solid border-theme-bluegray-300 pb-20 pt-15">
+<div class="w-full h-full bg-theme-bluegray-100 border-r-1 border-solid border-theme-bluegray-300 pt-15 flex flex-no-wrap justify-between" style="flex-direction: column;">
 
-	<div class="w-full px-10 mb-10">
-		<img [src]="opened ? './assets/branding/logo-horizontal.svg' : './assets/branding/logo.svg'"
-			[ngClass]="{'pl-7': !opened}"
-			class="display-block m-0 h-30 mx-auto">
+	<div class="w-full">
+		<div class="w-full px-10 mb-10">
+			<img [src]="opened ? './assets/branding/logo-horizontal.svg' : './assets/branding/logo.svg'"
+				[ngClass]="{'pl-7': !opened}"
+				class="display-block m-0 h-30 mx-auto">
+		</div>
+
+		<div class="w-full py-15">
+
+			<a routerLink="inicio" nz-tooltip [nzTooltipTitle]="!opened ? 'Inicio' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+				[ngClass]="{'justify-center': !opened}">
+				<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+					<span nz-icon nzType="home" nzTheme="fill"></span>
+				</div>
+
+				<p *ngIf="opened" class="display-block m-0">Inicio</p>
+			</a>
+
+			<a routerLink="cuentas" nz-tooltip [nzTooltipTitle]="!opened ? 'Cuentas' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+				[ngClass]="{'justify-center': !opened}">
+				<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+					<span nz-icon nzType="bank" nzTheme="fill"></span>
+				</div>
+
+				<p *ngIf="opened" class="display-block m-0">Cuentas</p>
+			</a>
+
+			<a routerLink="movimientos" nz-tooltip [nzTooltipTitle]="!opened ? 'Movimientos' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+				[ngClass]="{'justify-center': !opened}">
+				<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+					<span nz-icon nzType="retweet" nzTheme="outline"></span>
+				</div>
+
+				<p *ngIf="opened" class="display-block m-0">Movimientos</p>
+			</a>
+
+			<a routerLink="proyectos" nz-tooltip [nzTooltipTitle]="!opened ? 'Proyectos' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+				[ngClass]="{'justify-center': !opened}">
+				<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+					<span nz-icon nzType="project" nzTheme="outline"></span>
+				</div>
+
+				<p *ngIf="opened" class="display-block m-0">Proyectos</p>
+			</a>
+
+			<div (click)="cerrarSesion()" nz-tooltip [nzTooltipTitle]="!opened ? 'Cerrar sesión' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+				[ngClass]="{'justify-center': !opened}">
+				<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center text-red-700">
+					<span nz-icon nzType="logout" nzTheme="outline"></span>
+				</div>
+
+				<p *ngIf="opened" class="display-block m-0 text-red-800">Cerrar sesión</p>
+			</div>
+
+		</div>
 	</div>
 
-	<div class="w-full py-15">
+	<div class="w-full mt-10 bg-theme-bluegray-200 border-t-1 border-solid border-theme-bluegray-300">
+		<ng-container *ngIf="!loading; else tmpLoading">
+			<ng-container *ngIf="directiva">
+				<div class="w-full display-block m-0 px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+					[ngClass]="{'justify-center': !opened}"
+					nz-tooltip [nzTooltipTitle]="!opened ? directiva.nombre : ''">
 
-		<a routerLink="inicio" nz-tooltip [nzTooltipTitle]="!opened ? 'Inicio' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
-			[ngClass]="{'justify-center': !opened}">
-			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
-				<span nz-icon nzType="home" nzTheme="fill"></span>
-			</div>
+					<img [src]="directiva.avatar_url" class="bg-theme-bluegray-400 rounded-sm shadow-base h-30 w-30" />
 
-			<p *ngIf="opened" class="display-block m-0">Inicio</p>
-		</a>
-
-		<a routerLink="cuentas" nz-tooltip [nzTooltipTitle]="!opened ? 'Cuentas' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
-			[ngClass]="{'justify-center': !opened}">
-			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
-				<span nz-icon nzType="bank" nzTheme="fill"></span>
-			</div>
-
-			<p *ngIf="opened" class="display-block m-0">Cuentas</p>
-		</a>
-
-		<a routerLink="movimientos" nz-tooltip [nzTooltipTitle]="!opened ? 'Movimientos' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
-			[ngClass]="{'justify-center': !opened}">
-			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
-				<span nz-icon nzType="retweet" nzTheme="outline"></span>
-			</div>
-
-			<p *ngIf="opened" class="display-block m-0">Movimientos</p>
-		</a>
-
-		<a routerLink="proyectos" nz-tooltip [nzTooltipTitle]="!opened ? 'Proyectos' : ''" class="w-full display-block m-0 cursor-pointer px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
-			[ngClass]="{'justify-center': !opened}">
-			<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
-				<span nz-icon nzType="project" nzTheme="outline"></span>
-			</div>
-
-			<p *ngIf="opened" class="display-block m-0">Proyectos</p>
-		</a>
-
+					<p *ngIf="opened" class="display-block m-0">{{ directiva.nombre }}</p>
+				</div>
+			</ng-container>
+		</ng-container>
 	</div>
 
 </div>
+
+<ng-template #tmpLoading>
+	<div class="w-full display-block m-0 px-10 py-7 text-black flex flex-no-wrap items-center" style="gap: 1rem"
+		[ngClass]="{'justify-center': !opened}"
+		nz-tooltip [nzTooltipTitle]="!opened ? 'Cargando sesión' : ''">
+
+		<div class="bg-white rounded-sm shadow-base h-30 w-30 flex items-center justify-center">
+			<span nz-icon nzType="loading" nzTheme="outline"></span>
+		</div>
+
+		<p *ngIf="opened" style="font-style: italic;" class="text-gray-700 display-block m-0">Cargando sesión</p>
+	</div>
+</ng-template>
