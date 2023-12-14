@@ -10,6 +10,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { VerProyectoModule } from '../ver-proyecto/ver-proyecto.module';
+import { SelectEstadoProyectoModule } from 'src/app/shared/components/selects/select-estado-proyecto/select-estado-proyecto.module';
+import { SelectDirectivaModule } from 'src/app/shared/components/selects/select-directiva/select-directiva.module';
 
 @NgModule({
 	declarations: [ListadoProyectosComponent],
@@ -24,6 +26,8 @@ import { VerProyectoModule } from '../ver-proyecto/ver-proyecto.module';
 		NzDatePickerModule,
 		NzDrawerModule,
 		VerProyectoModule,
+		SelectEstadoProyectoModule,
+		SelectDirectivaModule,
 	],
 	providers: [
 		NzDrawerService,

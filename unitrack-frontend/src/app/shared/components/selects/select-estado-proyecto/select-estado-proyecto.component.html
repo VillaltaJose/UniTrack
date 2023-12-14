@@ -1,0 +1,20 @@
+<nz-select
+	class="w-full"
+	nzShowSearch
+	autocomplete="off"
+	[nzAllowClear]="!isDisabled"
+	[nzPlaceHolder]="isLoading ? 'Cargando estados...' : placeholder"
+	[disabled]="isDisabled"
+	[ngModel]="value"
+	(ngModelChange)="change($event)"
+	[nzLoading]="isLoading"
+	[nzStatus]="error ? 'warning' : ''">
+
+	<ng-container *ngIf="!isLoading">
+		<ng-container *ngFor="let estado of estados">
+			<nz-option [nzLabel]="estado.descripcion" [nzValue]="estado.id"></nz-option>
+		</ng-container>
+	</ng-container>
+
+	<nz-option *ngIf="isLoading" nzLabel="Cargando estados..." [nzValue]="null" nzDisabled></nz-option>
+</nz-select>

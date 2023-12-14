@@ -1,0 +1,26 @@
+<nz-select
+	class="w-full"
+	nzShowSearch
+	autocomplete="off"
+	[nzAllowClear]="!isDisabled"
+	[nzPlaceHolder]="isLoading ? 'Cargando directivas...' : placeholder"
+	[disabled]="isDisabled"
+	[ngModel]="value"
+	(ngModelChange)="change($event)"
+	[nzLoading]="isLoading"
+	[nzNotFoundContent]="error ? errorTmp : 'No hay información para mostrar'"
+	[nzStatus]="error ? 'warning' : ''">
+
+	<ng-container *ngIf="!isLoading">
+		<ng-container *ngFor="let directiva of directivas">
+			<nz-option [nzLabel]="directiva.nombre" [nzValue]="directiva.id"></nz-option>
+		</ng-container>
+	</ng-container>
+
+	<nz-option *ngIf="isLoading" nzLabel="Cargando directivas..." [nzValue]="null" nzDisabled></nz-option>
+</nz-select>
+
+<ng-template #errorTmp>
+	<p class="font-medium text-red-800 text-smd display-block m-0 text-center mb-5">Error al cargar las directivas</p>
+	<p class="text-red-900 text-smd text-center display-block m-0">{{ error }}</p>
+</ng-template>
