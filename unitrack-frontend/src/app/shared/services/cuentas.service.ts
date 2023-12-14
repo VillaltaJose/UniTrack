@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SupabaseService } from './supabase.service';
+import { StorageKeys, StorageService } from './storage.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -8,13 +9,14 @@ export class CuentasService {
 
 	constructor(
 		private _supabase: SupabaseService,
+		private _storage: StorageService,
 	) {}
 
 	async obtenerCuentas() {
 		const resp = await this._supabase.client.functions.invoke('listar-cuentas',
 			{
 				headers: {
-					'Id-Directiva': '33aef518-aa0e-469f-967e-45954733d9bb'
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
 				}
 			});
 
@@ -30,7 +32,7 @@ export class CuentasService {
 		const resp = await this._supabase.client.functions.invoke('agregar-cuenta',
 			{
 				headers: {
-					'Id-Directiva': '33aef518-aa0e-469f-967e-45954733d9bb'
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
 				},
 				body: cuenta
 			});
