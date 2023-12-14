@@ -1,12 +1,13 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js";
+import { SupabaseClient, createClient } from "https://esm.sh/@supabase/supabase-js";
 
 export class SupabaseProvider {
+	client: SupabaseClient;
 
-	constructor(url, key) {
+	constructor(url: string, key: string) {
 		this.client = createClient(url, key)
 	}
 
-	async verificarPermiso(idDirectiva, idUsuario, idPermiso) {
+	async verificarPermiso(idDirectiva: string, idUsuario: string, idPermiso: string) {
 		if (!this.client) return false
 	
 		const { data, error } = await this.client.rpc('verificar_permiso', {

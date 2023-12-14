@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { FunctionsHttpError } from '@supabase/supabase-js';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { TIPOS_CUENTAS } from 'src/app/shared/constants/tipos_cuentas';
 import { CuentasService } from 'src/app/shared/services/cuentas.service';

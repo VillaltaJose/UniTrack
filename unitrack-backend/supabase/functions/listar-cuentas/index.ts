@@ -1,7 +1,6 @@
-import { SupabaseProvider } from './../_shared/client.ts';
-import { okResponse, errorResponse } from './../_shared/responses.ts';
-import { corsHeaders } from '../_shared/cors.ts'
-
+import { SupabaseProvider } from "./../_shared/client.ts";
+import { okResponse, errorResponse } from "./../_shared/responses.ts";
+import { corsHeaders } from "../_shared/cors.ts";
 
 Deno.serve(async (req: Request) => {
 	if (req.method === "OPTIONS") {
@@ -9,24 +8,36 @@ Deno.serve(async (req: Request) => {
 	}
 
 	try {
-		const supabase = new SupabaseProvider(Deno.env.get("URL") ?? '', Deno.env.get("ANON_KEY") ?? '');
+		const supabase = new SupabaseProvider(
+			Deno.env.get("URL") ?? "",
+			Deno.env.get("ANON_KEY") ?? ""
+		);
 
 		const global = {
-			idDirectiva: req.headers.get('Id-Directiva'),
-			session: (await supabase.client.auth.getUser(req.headers.get('Authorization')!.replace('Bearer ', ''))).data.user
-		}
+			idDirectiva: req.headers.get("Id-Directiva")?.toString() || "",
+			session: (
+				await supabase.client.auth.getUser(
+					req.headers.get("Authorization")!.replace("Bearer ", "")
+				)
+			).data.user,
+		};
 
-		const tienePermiso = await supabase.verificarPermiso(global.idDirectiva, global.session.id, '6c1f989f-5e26-4317-89a8-fcedd8890fa0');
+		const tienePermiso = await supabase.verificarPermiso(
+			global.idDirectiva,
+			global.session!.id,
+			"6c1f989f-5e26-4317-89a8-fcedd8890fa0"
+		);
 
 		if (!tienePermiso) {
-			return new Response(String('No tiene permiso para visualizar las cuentas financieras de la directiva'), {
-				headers: { ...corsHeaders, "Content-Type": "application/json" },
-				status: 401
-			});
+			return errorResponse(
+				"No tiene permiso para visualizar las cuentas financieras de la directiva"
+			);
 		}
 
-		const { data, error } = await supabase.client.from('cuentas')
-			.select(`
+		const { data, error } = await supabase.client
+			.from("cuentas")
+			.select(
+				`
 				id,
 				alias,
 				saldo,
@@ -36,9 +47,10 @@ Deno.serve(async (req: Request) => {
 				institucion:instituciones_financieras!inner(
 					nombre
 				)
-			`)
-			.eq('id_directiva', global.idDirectiva)
-			.order('id', { ascending: true });
+			`
+			)
+			.eq("id_directiva", global.idDirectiva)
+			.order("id", { ascending: true });
 
 		if (error) {
 			throw error;
@@ -46,7 +58,7 @@ Deno.serve(async (req: Request) => {
 
 		return okResponse(data);
 	} catch (err) {
-		console.error(err)
-		return errorResponse(err.message || err.details || JSON.stringify(err))
+		console.error(err);
+		return errorResponse(err.message || err.details || JSON.stringify(err));
 	}
 });

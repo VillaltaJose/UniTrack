@@ -1,6 +1,7 @@
+// deno-lint-ignore-file no-explicit-any
 import { corsHeaders } from '../_shared/cors.ts';
 
-export const errorResponse = (error, status = 500) => {
+export const errorResponse = (error: any, status = 500) => {
 	return new Response(
 		JSON.stringify(error),
 		{
@@ -10,7 +11,7 @@ export const errorResponse = (error, status = 500) => {
 	);
 }
 
-export const okResponse = (data) => {
+export const okResponse = (data: any) => {
 	return new Response(
 		typeof data === 'string' ? data : JSON.stringify(data),
 		{
