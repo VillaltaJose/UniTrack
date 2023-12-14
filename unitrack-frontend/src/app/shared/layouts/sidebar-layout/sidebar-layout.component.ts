@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { Session } from '@supabase/supabase-js';
+import { StorageKeys, StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-sidebar-layout',
@@ -14,7 +14,7 @@ export class SidebarLayoutComponent implements OnInit {
 	usuario: any | null = null
 
 	constructor(
-		private _auth: AuthService,
+		private _storage: StorageService,
 	) {
 		this.isSidebarOpen = localStorage.getItem('isSidebarOpen') === 'true'
 	}
@@ -29,11 +29,11 @@ export class SidebarLayoutComponent implements OnInit {
 	}
 
 	obtenerSesion() {
-		this.session = this._auth.session
+		this.session = this._storage.getStorage(StorageKeys.SESION)
 
 		if (!this.session) return
 
-		this.usuario = this._auth.profile()
+		this.usuario = this._storage.getStorage(StorageKeys.PERFIL)
 	}
 
 }
