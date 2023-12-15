@@ -1,94 +1,100 @@
 <div class="grid w-full">
 
-	<div class="grid-col-12 rounded p-10 border-1 border-solid border-theme-bluegray-400 flex items-start flex-no-wrap" style="gap: 1.5rem">
+	<ng-container *ngIf="error">
+		<div class="grid-col-12 border-1 border-solid border-red-700 bg-redgray px-10 py-7 rounded-sm">
+			<p class="display-block m-0 text-red-800">{{ error }}</p>
+		</div>
+	</ng-container>
 
-		<img src="https://api.dicebear.com/7.x/initials/svg?seed=Proyecto%201" class="w-50 h-50 display-block m-0 rounded-sm bg-theme-bluegray-200 border-0">
+	<ng-container *ngIf="!loading.proyecto; else tmpLoading">
+		<div *ngIf="proyecto" class="grid-col-12 rounded p-10 border-1 border-solid border-theme-bluegray-400 flex items-start flex-no-wrap" style="gap: 1.5rem">
 
-		<div class="w-full">
-			<h4 class="font-bold display-block m-0">Nombre Proyecto</h4>
-
-			<p class="display-block m-0 mb-7 text-gray-900">
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maxime culpa autem voluptas hic ad labore aperiam sapiente praesentium consequuntur doloribus.
-			</p>
+			<img [src]="proyecto.directiva.avatar" nz-tooltip [nzTooltipTitle]="proyecto.directiva.nombre"
+				class="w-50 h-50 display-block m-0 rounded-sm bg-theme-bluegray-200 border-0">
 
 			<div class="w-full">
-				<p class="font-medium display-inline-block m-0 mb-5">
-					Fecha de inicio: <b class="m-0 font-normal display-inline-block">{{ fecha | date:'dd-MM-yyyy' }}</b>
+				<h4 class="font-bold display-block m-0">{{ proyecto.nombre }}</h4>
+
+				<p class="display-block m-0 mb-7 text-gray-900">
+					{{ proyecto.descripcion }}
 				</p>
+
+				<div class="w-full">
+					<p class="font-medium display-inline-block m-0 mb-5">
+						Fecha de inicio: <b class="m-0 font-normal display-inline-block">{{ proyecto.fechaInicio ? (proyecto.fechaInicio | date:'dd-MM-yyyy') : 'Sin fecha registrada' }}</b>
+					</p>
+				</div>
+				<div class="w-full">
+					<p class="font-medium display-inline-block m-0 mb-5">
+						Fecha de fin: <b class="m-0 font-normal display-inline-block">{{ proyecto.fechaFin ? (proyecto.fechaFin | date:'dd-MM-yyyy') : 'Sin fecha registrada' }}</b>
+					</p>
+				</div>
+				<div class="w-full">
+					<p class="font-medium display-inline-block m-0 mb-5">
+						Estado:
+						<nz-tag [nzColor]="proyecto.estado.color">{{ proyecto.estado.descripcion }}</nz-tag>
+					</p>
+				</div>
 			</div>
-			<div class="w-full">
-				<p class="font-medium display-inline-block m-0 mb-5">
-					Fecha de fin: <b class="m-0 font-normal display-inline-block">{{ fecha | date:'dd-MM-yyyy' }}</b>
-				</p>
-			</div>
-			<div class="w-full">
-				<p class="font-medium display-inline-block m-0 mb-5">
-					Estado:
-					<nz-tag [nzColor]="'orange'">Pendiente aprobación</nz-tag>
-				</p>
-			</div>
-		</div>
-
-	</div>
-
-	<div class="grid-col-12">
-		<h4 class="font-medium display-block m-0 mb-10">Historial de cambios</h4>
-
-		<div class="w-full">
-			<textarea nz-input class="w-full mb-10" [rows]="3"></textarea>
-			<div class="w-full flex items-center" style="gap: 1rem">
-				<button nz-button nzType="primary">Enviar comentario</button>
-				<button nz-button nzType="text"
-					nz-tooltip nzTooltipTitle="Adjuntar archivo"><span nz-icon nzType="paper-clip" nzTheme="outline"></span></button>
-			</div>
-		</div>
-
-		<div class="w-full pt-20 mt-15">
-
-			<nz-timeline nzMode="left">
-				<nz-timeline-item>
-					<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ fecha | date:'dd-MM-yyyy hh:mm' }}</p>
-					<nz-tag [nzColor]="'green'">Aprobado</nz-tag>
-
-					<div class="w-full pt-5">
-						<p class="display-block m-0 text-md">Solve initial network problems</p>
-					</div>
-				</nz-timeline-item>
-				<nz-timeline-item>
-					<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ fecha | date:'dd-MM-yyyy hh:mm' }}</p>
-					<nz-tag [nzColor]="'orange'">Pendiente aprobación</nz-tag>
-
-					<div class="w-full pt-5">
-						<p class="display-block m-0 text-md">Solve initial network problems</p>
-					</div>
-				</nz-timeline-item>
-				<nz-timeline-item>
-					<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ fecha | date:'dd-MM-yyyy hh:mm' }}</p>
-					<nz-tag [nzColor]="'yellow'">Cambios pendientes</nz-tag>
-
-					<div class="w-full pt-5">
-						<p class="display-block m-0 text-md">Solve initial network problems</p>
-					</div>
-				</nz-timeline-item>
-				<nz-timeline-item nzColor="gray">
-					<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ fecha | date:'dd-MM-yyyy hh:mm' }}</p>
-					<nz-tag [nzColor]="'orange'">Pendiente aprobación</nz-tag>
-
-					<div class="w-full pt-5">
-						<p class="display-block m-0 text-md">Aprobación pendiente</p>
-					</div>
-				</nz-timeline-item>
-				<nz-timeline-item nzColor="gray">
-					<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ fecha | date:'dd-MM-yyyy hh:mm' }}</p>
-					<nz-tag [nzColor]="'gray'">Solicitud</nz-tag>
-
-					<div class="w-full pt-5">
-						<p class="display-block m-0 text-md">Creación del proyecto</p>
-					</div>
-				</nz-timeline-item>
-			</nz-timeline>
 
 		</div>
-	</div>
+	</ng-container>
+
+	<ng-container *ngIf="!loading.proyecto && !loading.historial; else tmpLoadingHist">
+		<div class="grid-col-12">
+			<ng-container *ngIf="proyecto">
+				<h4 class="font-medium display-block m-0 mb-10">Historial de cambios</h4>
+
+				<div class="w-full">
+					<textarea nz-input class="w-full mb-10" [rows]="3"></textarea>
+					<div class="w-full flex items-center" style="gap: 1rem">
+						<button nz-button nzType="primary">Enviar comentario</button>
+						<button nz-button nzType="text"
+							nz-tooltip nzTooltipTitle="Adjuntar archivo"><span nz-icon nzType="paper-clip" nzTheme="outline"></span></button>
+					</div>
+				</div>
+			</ng-container>
+
+			<div *ngIf="historial && historial.length > 0; else tmpNoHist" class="w-full pt-20 mt-15">
+
+				<nz-timeline nzMode="left">
+					<ng-container *ngFor="let h of historial">
+						<nz-timeline-item nzColor="gray">
+							<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ h.fecha | date:'dd-MM-yyyy hh:mm' }}</p>
+							<nz-tag [nzColor]="h.estado.color">{{ h.estado.descripcion }}</nz-tag>
+
+							<div class="w-full pt-5">
+								<p class="display-block m-0 text-md">{{ h.comentario }}</p>
+							</div>
+						</nz-timeline-item>
+					</ng-container>
+				</nz-timeline>
+
+			</div>
+		</div>
+	</ng-container>
 
 </div>
+
+
+<ng-template #tmpLoading>
+	<div class="w-full h-full grid-col-12 flex items-center justify-center" style="height: calc(100vh - 10rem);">
+		<div class="w-full">
+			<nz-spin nzTip="Cargando proyecto..."></nz-spin>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #tmpNoHist>
+	<div class="w-full h-full grid-col-12 py-20 mt-20">
+		<p class="display-block m-0 text-gray-800 text-md text-center" style="font-style: italic;">No hay cambios para mostrar</p>
+	</div>
+</ng-template>
+
+<ng-template #tmpLoadingHist>
+	<div class="w-full h-full grid-col-12 flex items-center justify-center" style="height: 200px;">
+		<div class="w-full">
+			<nz-spin nzTip="Cargando historial de cambios..."></nz-spin>
+		</div>
+	</div>
+</ng-template>

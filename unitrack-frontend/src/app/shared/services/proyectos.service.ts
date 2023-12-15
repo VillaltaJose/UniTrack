@@ -48,4 +48,38 @@ export class ProyectosService {
 		}
 	}
 
+	async obtenerProyecto(id: string) {
+		const resp = await this._supabase.client.functions.invoke('ver-proyecto',
+			{
+				headers: {
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
+				},
+				body: { idProyecto: id }
+			});
+
+		if (resp.error) {
+			const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+			resp.error.message = errResponse || resp.error.message
+		}
+
+		return resp
+	}
+
+	async obtenerHistorial(id: string) {
+		const resp = await this._supabase.client.functions.invoke('ver-historial-proyecto',
+			{
+				headers: {
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
+				},
+				body: { idProyecto: id }
+			});
+
+		if (resp.error) {
+			const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+			resp.error.message = errResponse || resp.error.message
+		}
+
+		return resp
+	}
+
 }

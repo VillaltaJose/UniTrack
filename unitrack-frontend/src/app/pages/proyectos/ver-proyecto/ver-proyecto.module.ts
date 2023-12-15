@@ -8,6 +8,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
 	declarations: [VerProyectoComponent],
@@ -21,6 +22,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 		NzTimelineModule,
 		NzIconModule,
 		NzToolTipModule,
+		NzSpinModule,
 	],
 })
 export class VerProyectoModule {}

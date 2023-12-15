@@ -53,10 +53,11 @@ export class ListadoProyectosComponent implements OnInit {
 		this.proyectos = data
 	}
 
-	abrirDrawerProyecto(codigo: number) {
+	abrirDrawerProyecto(id: string) {
 		this._drawer.create({
 			nzContent: VerProyectoComponent,
 			nzWidth: '600px',
+			nzContentParams: { idProyecto: id },
 		})
 	}
 
