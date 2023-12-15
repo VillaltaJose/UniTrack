@@ -64,11 +64,11 @@ Deno.serve(async (req: Request) => {
 			)
 			.order('fecha_inicio,created_at', { ascending: true });
 
-		if (!params.idDirectiva) {
-			params.idDirectiva = global.idDirectiva;
+		if (params.idDirectiva) {
+			query.or(`id.eq.${params.idDirectiva}`, {referencedTable: 'directivas'})
+		} else {
+			query.or(`reporta_a.eq.${global.idDirectiva},id.eq.${global.idDirectiva}`, {referencedTable: 'directivas'})
 		}
-
-		query.or(`reporta_a.eq.${params.idDirectiva},id.eq.${params.idDirectiva}`, {referencedTable: 'directivas'})
 		
 		if (params.idEstado) {
 			query.eq(`id_estado`, `${params.idEstado}`)
