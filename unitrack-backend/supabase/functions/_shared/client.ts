@@ -20,4 +20,23 @@ export class SupabaseProvider {
 			
 		return data.length > 0
 	}
+
+	async esDirectivaPadre(idDirectivaPadre: string, idDirectivaHija: string) {
+		if (!this.client) return false
+
+		console.log(idDirectivaPadre, idDirectivaHija)
+		const { count, error } = await this.client.from('directivas')
+		.select('*', { count: 'exact', head: true })
+		.eq('id', idDirectivaHija)
+		.eq('reporta_a', idDirectivaPadre)
+	
+		if (error) {
+			console.error(error)
+			return false
+		}
+
+		if (!count) return false
+
+		return count > 0
+	}
 }

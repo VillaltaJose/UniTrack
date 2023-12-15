@@ -12,12 +12,16 @@ import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { VerProyectoModule } from '../ver-proyecto/ver-proyecto.module';
 import { SelectEstadoProyectoModule } from 'src/app/shared/components/selects/select-estado-proyecto/select-estado-proyecto.module';
 import { SelectDirectivaModule } from 'src/app/shared/components/selects/select-directiva/select-directiva.module';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [ListadoProyectosComponent],
 	imports: [
 		CommonModule,
 		ListadoProyectosRoutingModule,
+		FormsModule,
+		ReactiveFormsModule,
 		NzButtonModule,
 		NzInputModule,
 		NzTableModule,
@@ -25,6 +29,7 @@ import { SelectDirectivaModule } from 'src/app/shared/components/selects/select-
 		NzToolTipModule,
 		NzDatePickerModule,
 		NzDrawerModule,
+		NzTagModule,
 		VerProyectoModule,
 		SelectEstadoProyectoModule,
 		SelectDirectivaModule,
