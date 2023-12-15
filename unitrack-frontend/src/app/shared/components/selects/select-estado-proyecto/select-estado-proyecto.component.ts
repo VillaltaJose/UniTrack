@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, forwardRef } from '@angular/core';
+import { AfterViewInit, Component, Input, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SupabaseService } from 'src/app/shared/services/supabase.service';
 import { CommonSelect } from '../common-select';
@@ -14,6 +14,8 @@ import { CommonSelect } from '../common-select';
 	}]
 })
 export class SelectEstadoProyectoComponent extends CommonSelect<string> implements AfterViewInit {
+
+	@Input('mostrarInactivos') mostrarInactivos: boolean = false
 
 	isLoading: boolean = true;
 	estados: any[] = []
@@ -32,13 +34,19 @@ export class SelectEstadoProyectoComponent extends CommonSelect<string> implemen
 	async obtenerEstados() {
 		this.isLoading = true
 
-		const { data, error } = await this._supabase.client.from('estados_proyectos')
+		const query = this._supabase.client.from('estados_proyectos')
 		.select(`
 			id,
-			descripcion
+			color,
+			descripcion,
+			activo
 		`)
-		.eq('activo', true)
-		.order('orden', { ascending: true })
+
+		if (!this.mostrarInactivos)
+			query.eq('activo', true)
+
+
+		const { data, error } = await query.order('orden', { ascending: true })
 
 		this.isLoading = false
 

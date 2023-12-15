@@ -12,7 +12,12 @@
 
 	<ng-container *ngIf="!isLoading">
 		<ng-container *ngFor="let estado of estados">
-			<nz-option [nzLabel]="estado.descripcion" [nzValue]="estado.id"></nz-option>
+			<nz-option nzCustomContent [nzLabel]="estado.descripcion" [nzDisabled]="!estado.activo" [nzValue]="estado.id">
+				<div class="flex items-center flex-no-wrap">
+					<div class="w-15 h-15 rounded-full mr-7" [style.background]="estado.color"></div>
+					<p class="display-block m-0">{{ estado.descripcion }}</p>
+				</div>
+			</nz-option>
 		</ng-container>
 	</ng-container>
 

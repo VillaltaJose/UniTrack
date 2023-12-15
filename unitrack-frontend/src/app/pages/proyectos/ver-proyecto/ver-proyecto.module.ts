@@ -9,12 +9,16 @@ import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { SelectEstadoProyectoModule } from 'src/app/shared/components/selects/select-estado-proyecto/select-estado-proyecto.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
 	declarations: [VerProyectoComponent],
 	exports: [VerProyectoComponent],
 	imports: [
 		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
 		NzInputModule,
 		NzButtonModule,
 		NzDrawerModule,
@@ -23,6 +27,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 		NzIconModule,
 		NzToolTipModule,
 		NzSpinModule,
+		SelectEstadoProyectoModule,
 	],
 })
 export class VerProyectoModule {}

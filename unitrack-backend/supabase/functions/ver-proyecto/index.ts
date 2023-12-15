@@ -65,7 +65,7 @@ Deno.serve(async (req: Request) => {
 				fechaInicio:fecha_inicio,
 				fechaFin:fecha_fin,
 				directiva:directivas!inner ( nombre, avatar:avatar_url ),
-				estado:estados_proyectos (descripcion, color)
+				estado:estados_proyectos ( id, descripcion, color )
 			`
 			)
 			.eq('id', params.idProyecto)

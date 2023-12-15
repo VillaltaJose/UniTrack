@@ -1,4 +1,4 @@
-<div class="grid w-full">
+<form [formGroup]="formComentario" class="grid w-full">
 
 	<ng-container *ngIf="error">
 		<div class="grid-col-12 border-1 border-solid border-red-700 bg-redgray px-10 py-7 rounded-sm">
@@ -34,6 +34,13 @@
 						Estado:
 						<nz-tag [nzColor]="proyecto.estado.color">{{ proyecto.estado.descripcion }}</nz-tag>
 					</p>
+
+					<ng-container *ngIf="false">
+						<p class="font-medium display-inline-block m-0 mb-5 flex items-center flex-no-wrap">
+							Estado:
+							<app-select-estado-proyecto formControlName="idEstado" class="ml-7" style="min-width: 50%;" [mostrarInactivos]="true"></app-select-estado-proyecto>
+						</p>
+					</ng-container>
 				</div>
 			</div>
 
@@ -74,7 +81,7 @@
 		</div>
 	</ng-container>
 
-</div>
+</form>
 
 
 <ng-template #tmpLoading>

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProyectosService } from 'src/app/shared/services/proyectos.service';
 
 @Component({
@@ -15,14 +16,19 @@ export class VerProyectoComponent implements AfterViewInit {
 		proyecto: true,
 		historial: false,
 	}
-	fecha = new Date()
+
+	formComentario: FormGroup
 
 	proyecto: any = null
 	historial: any[] = []
 
 	constructor(
 		private _proyecto: ProyectosService,
-	) { }
+	) {
+		this.formComentario = new FormGroup({
+			idEstado: new FormControl(null, [Validators.required]),
+		})
+	}
 
 	async ngAfterViewInit() {
 		await this.obtenerProyecto()
@@ -42,6 +48,7 @@ export class VerProyectoComponent implements AfterViewInit {
 		}
 
 		this.proyecto = proyecto
+		this.formComentario.get('idEstado')?.setValue(proyecto.idEstado)
 
 		this.obtenerHistorial()
 	}
