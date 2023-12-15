@@ -14,6 +14,7 @@ import { SelectEstadoProyectoModule } from 'src/app/shared/components/selects/se
 import { SelectDirectivaModule } from 'src/app/shared/components/selects/select-directiva/select-directiva.module';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NuevoProyectoModule } from '../nuevo-proyecto/nuevo-proyecto.module';
 
 @NgModule({
 	declarations: [ListadoProyectosComponent],
@@ -33,6 +34,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		VerProyectoModule,
 		SelectEstadoProyectoModule,
 		SelectDirectivaModule,
+		NuevoProyectoModule,
 	],
 	providers: [
 		NzDrawerService,

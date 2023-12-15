@@ -1,3 +1,4 @@
+import { PERMISOS } from './../_shared/permissions.ts';
 import { errorResponse, okResponse } from "./../_shared/responses.ts";
 import { corsHeaders } from "../_shared/cors.ts";
 import { SupabaseProvider } from "../_shared/client.ts";
@@ -25,30 +26,53 @@ Deno.serve(async (req: Request) => {
 		const tienePermiso = await supabase.verificarPermiso(
 			global.idDirectiva,
 			global.session!.id,
-			"2077f96c-f6ea-4c3e-abd6-d8f0469e5223"
+			PERMISOS.PROYECTOS.CREAR
 		);
 
 		if (!tienePermiso) {
 			return errorResponse(
-				"No tiene permiso para registrar cuentas financieras de la directiva"
+				'No tiene permiso para crear nuevos proyectos'
 			);
 		}
 
-		const cuenta = await req.json();
-		cuenta.id_directiva = global.idDirectiva;
+		const params = await req.json();
 
-		if (cuenta.tipo_cuenta !== "1" && cuenta.tipo_cuenta !== "2") {
-			cuenta.tipo_cuenta = 1;
+		const idEstadoInicial = '0b9e331e-ac52-40eb-9e7c-6e8b3dbbcc4a';
+
+		// TODO: Cambiar el ID de estado por el de la tabla de estados
+		const proyecto = {
+			id_usuario_crea: global.session!.id,
+			id_directiva: global.idDirectiva,
+			nombre: params.nombre,
+			descripcion: params.descripcion,
+			id_estado: idEstadoInicial,
+			fecha_inicio: params.fechaInicio,
+			fecha_fin: params.fechaFin,
+			fecha_ult_actualizacion: new Date(),
 		}
 
-		const { error } = await supabase.client.from("cuentas").insert(cuenta);
+		const { data: proyectoCreado, error } = await supabase.client.from('proyectos').insert(proyecto).select();
 
 		if (error) {
 			throw error;
 		}
 
+		const historico = {
+			id_usuario: global.session!.id,
+			id_proyecto: proyectoCreado![0].id,
+			id_estado: idEstadoInicial,
+			fecha: new Date(),
+			comentario: `Creación de proyecto: ${proyecto.nombre}`,
+		}
+
+		const resp = await supabase.client.from('historial_proyectos').insert(historico);
+
+		if (resp.error) {
+			console.error(resp.error);
+		}
+
 		return okResponse(
-			`La cuenta ${cuenta.alias} ha sido registrada exitosamente`
+			`El proyecto ${proyecto.nombre} ha sido creado exitosamente`
 		);
 	} catch (err) {
 		console.error(err);

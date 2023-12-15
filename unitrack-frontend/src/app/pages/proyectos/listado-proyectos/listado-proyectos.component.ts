@@ -3,6 +3,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { VerProyectoComponent } from '../ver-proyecto/ver-proyecto.component';
 import { ProyectosService } from 'src/app/shared/services/proyectos.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NuevoProyectoComponent } from '../nuevo-proyecto/nuevo-proyecto.component';
 
 @Component({
   selector: 'app-listado-proyectos',
@@ -56,6 +57,19 @@ export class ListadoProyectosComponent implements OnInit {
 		this._drawer.create({
 			nzContent: VerProyectoComponent,
 			nzWidth: '600px',
+		})
+	}
+
+	abrirDrawerNuevoProyecto() {
+		const drawer = this._drawer.create({
+			nzContent: NuevoProyectoComponent,
+			nzWidth: '500px',
+		})
+
+		drawer.afterClose.subscribe((data) => {
+			if (data) {
+				this.obtenerProyectos()
+			}
 		})
 	}
 
