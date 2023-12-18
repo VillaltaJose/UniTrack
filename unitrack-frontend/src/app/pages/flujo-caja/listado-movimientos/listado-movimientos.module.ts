@@ -8,6 +8,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NuevoMovimientoModule } from '../nuevo-movimiento/nuevo-movimiento.module';
+import { NzDrawerModule, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @NgModule({
 	declarations: [ListadoMovimientosComponent],
@@ -20,6 +22,11 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 		NzInputModule,
 		NzDatePickerModule,
 		NzToolTipModule,
+		NuevoMovimientoModule,
+		NzDrawerModule,
 	],
+	providers: [
+		NzDrawerService,
+	]
 })
 export class ListadoMovimientosModule {}

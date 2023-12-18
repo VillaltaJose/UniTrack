@@ -69,4 +69,8 @@ export class VerProyectoComponent implements AfterViewInit {
 		this.historial = historial
 	}
 
+	async enviarComentario() {
+		
+	}
+
 }

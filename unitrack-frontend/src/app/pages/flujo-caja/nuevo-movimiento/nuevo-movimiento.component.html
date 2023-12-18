@@ -1,0 +1,53 @@
+<form [formGroup]="form" class="grid w-full">
+
+	<div class="grid-col-12">
+		<h3 class="font-bold display-block m-0">Nueva transacción</h3>
+	</div>
+
+	<div *ngIf="error" class="grid-col-12 border-1 border-solid border-red-700 rounded-sm bg-redgray px-10 py-7">
+		<p class="display-block m-0 text-red-800">{{ error }}</p>
+	</div>
+
+	<div class="grid-col-12">
+		<p class="display-block m-0 mb-5">Proyecto</p>
+		<input type="text" nz-input placeholder="Ej. Cuenta de José" />
+	</div>
+
+	<div class="grid-col-12">
+		<p class="display-block m-0 mb-5">Motivo / Justificación / Destino</p>
+		<textarea nz-input class="w-full" rows="7"></textarea>
+	</div>
+
+	<div class="grid-col-6">
+		<p class="display-block m-0 mb-5">Tipo de movimiento:</p>
+		<nz-select name="value" class="w-full">
+			<nz-option nzLabel="Ingreso" nzValue="I">
+			</nz-option>
+			<nz-option nzLabel="Egreso" nzValue="E">
+			</nz-option>
+		</nz-select>
+	</div>
+
+	<div class="grid-col-6">
+		<p class="display-block m-0 mb-5">Monto</p>
+		<nz-input-number nzPlaceHolder="0.00" class="w-full" [nzMin]="0.01"></nz-input-number>
+	</div>
+
+	<div class="grid-col-12">
+		<p class="display-block m-0 mb-5">Facturas / Comprobantes</p>
+		<div class="w-full border-1 border-solid border-theme-bluegray-400 rounded-sm p-10">
+			<p class="display-block m-0 text-black text-center">Cargar archivos</p>
+		</div>
+	</div>
+
+	<div class="grid-col-12 border-t-1 border-solid border-theme-bluegray-400"></div>
+
+	<div class="grid-col-6">
+		<button type="button" [nzLoading]="loading.guardar" (click)="registrarMovimiento()" nz-button class="w-full" nzType="primary">Registrar movimiento</button>
+	</div>
+
+	<div class="grid-col-6">
+		<button nz-button [disabled]="loading.guardar" class="w-full btn-bluegray btn-custom" nzType="primary">Cancelar</button>
+	</div>
+
+</form>
