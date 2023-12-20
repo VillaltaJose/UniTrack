@@ -62,20 +62,24 @@
 				</div>
 			</ng-container>
 
-			<div *ngIf="historial && historial.length > 0; else tmpNoHist" class="w-full pt-20 mt-15">
+			<div *ngIf="historial && historial.length > 0; else tmpNoHist" class="w-full pt-20 mt-15 grid">
 
-				<nz-timeline nzMode="left">
-					<ng-container *ngFor="let h of historial">
-						<nz-timeline-item nzColor="gray">
-							<p class="display-block m-0 font-medium text-gray-800 text-sm">{{ h.fecha | date:'dd-MM-yyyy hh:mm' }}</p>
-							<nz-tag [nzColor]="h.estado.color">{{ h.estado.descripcion }}</nz-tag>
+				<ng-container *ngFor="let h of historial">
+					<div class="grid-col-12 flex flex-no-wrap">
+						<img [src]="h.usuario.avatar" nz-tooltip [nzTooltipTitle]="h.usuario.nombre" class="rounded-full w-40 h-40 mr-10">
 
-							<div class="w-full pt-5">
-								<p class="display-block m-0 text-md">{{ h.comentario }}</p>
+						<div class="w-full">
+							<div class="w-full flex items-center flex-no-wrap mb-7">
+								<nz-tag [nzColor]="h.estado.color">{{ h.estado.descripcion }}</nz-tag>
+								<p class="display-block m-0 text-smd text-gray-800 ml-5">
+									{{ h.fecha | date:'dd-MM-yyyy hh:mm' }}
+								</p>
 							</div>
-						</nz-timeline-item>
-					</ng-container>
-				</nz-timeline>
+
+							<p class="display-block m-0 text-md">{{ h.comentario }}</p>
+						</div>
+					</div>
+				</ng-container>
 
 			</div>
 		</div>
