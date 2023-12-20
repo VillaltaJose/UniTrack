@@ -17,6 +17,7 @@ export class ListadoProyectosComponent implements OnInit {
 	proyectos: any[] = []
 
 	formFiltros: FormGroup
+	error: string | null = null
 
 	constructor(
 		private _drawer: NzDrawerService,
@@ -36,8 +37,13 @@ export class ListadoProyectosComponent implements OnInit {
 	}
 
 	async obtenerProyectos() {
-		if (this.formFiltros.invalid) return
+		if (this.formFiltros.invalid) {
+			this.error = 'Los campos marcados son obligatorios o se encuentran en estado inválido'
+			this.formFiltros.markAllAsTouched()
+			return
+		}
 
+		this.error = null
 		this.loading = true
 
 		const { data, error } = await this._proyectos.obtenerProyectos(this.formFiltros.getRawValue())
@@ -46,6 +52,7 @@ export class ListadoProyectosComponent implements OnInit {
 
 		if (error) {
 			console.error(error)
+			this.error = error.message
 			return
 		}
 

@@ -62,6 +62,7 @@ Deno.serve(async (req: Request) => {
 				estado:estados_proyectos (descripcion, color)
 			`
 			)
+			.eq(`visible`, true)
 			.order('fecha_inicio,created_at', { ascending: true });
 
 		if (params.idDirectiva) {

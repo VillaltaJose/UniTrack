@@ -50,6 +50,12 @@
 				</div>
 			</div>
 
+			<ng-container *ngIf="error">
+				<div class="w-full mt-7 mb-15 rounded-sm border-solid border-1 border-red-800 bg-redgray px-10 py-7">
+					<p class="display-block m-0 text-red-800">{{ error }}</p>
+				</div>
+			</ng-container>
+
 			<nz-table #nzTable nzSize="small" [nzData]="proyectos" [nzPageSize]="100" [nzLoading]="loading">
 				<thead>
 					<tr>
