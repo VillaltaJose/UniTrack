@@ -25,6 +25,14 @@ Deno.serve(async (req: Request) => {
 
 		const params = await req.json();
 
+		if (!params.comentario) {
+			return errorResponse("El comentario es requerido");
+		}
+		
+		if (!params.id) {
+			return errorResponse("Debe especificar el ID del proyecto");
+		}
+
 		const tienePermiso = await supabase.verificarPermiso(
 			global.idDirectiva,
 			global.session!.id,

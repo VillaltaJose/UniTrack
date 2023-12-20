@@ -33,7 +33,7 @@ export class VerProyectoComponent implements AfterViewInit {
 			fechaInicio: new FormControl(null, []),
 			fechaFin: new FormControl(null, []),
 			idEstado: new FormControl(null, [Validators.required]),
-			comentario: new FormControl(null, []),
+			comentario: new FormControl(null, [Validators.required]),
 		})
 	}
 
