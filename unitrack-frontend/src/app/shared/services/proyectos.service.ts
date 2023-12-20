@@ -82,4 +82,23 @@ export class ProyectosService {
 		return resp
 	}
 
+	async actualizarProyecto(proyecto: any) {
+		try {
+			const resp = await this._supabase.client.functions.invoke('actualizar-proyecto',
+			{
+				headers: { 'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA) },
+				body: proyecto
+			});
+
+			if (resp.error) {
+				const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+				resp.error.message = errResponse || resp.error.message
+			}
+
+			return resp
+		} catch (err: any) {
+			return {error: {message: err.toString()}, data: null}
+		}
+	}
+
 }

@@ -15,9 +15,10 @@ export class VerProyectoComponent implements AfterViewInit {
 	loading = {
 		proyecto: true,
 		historial: false,
+		guardar: false,
 	}
-
-	formComentario: FormGroup
+	edicion: boolean = false
+	formProyecto: FormGroup
 
 	proyecto: any = null
 	historial: any[] = []
@@ -25,8 +26,14 @@ export class VerProyectoComponent implements AfterViewInit {
 	constructor(
 		private _proyecto: ProyectosService,
 	) {
-		this.formComentario = new FormGroup({
+		this.formProyecto = new FormGroup({
+			id: new FormControl(this.idProyecto, []),
+			nombre: new FormControl(null, [Validators.required]),
+			descripcion: new FormControl(null, [Validators.required]),
+			fechaInicio: new FormControl(null, []),
+			fechaFin: new FormControl(null, []),
 			idEstado: new FormControl(null, [Validators.required]),
+			comentario: new FormControl(null, []),
 		})
 	}
 
@@ -36,6 +43,9 @@ export class VerProyectoComponent implements AfterViewInit {
 
 	async obtenerProyecto() {
 		this.loading.proyecto = true
+		this.loading.historial = false
+
+		this.edicion = false
 
 		const { data: proyecto, error } = await this._proyecto.obtenerProyecto(this.idProyecto)
 
@@ -48,7 +58,6 @@ export class VerProyectoComponent implements AfterViewInit {
 		}
 
 		this.proyecto = proyecto
-		this.formComentario.get('idEstado')?.setValue(proyecto.idEstado)
 
 		this.obtenerHistorial()
 	}
@@ -69,8 +78,52 @@ export class VerProyectoComponent implements AfterViewInit {
 		this.historial = historial
 	}
 
-	async enviarComentario() {
-		
+	async guardarCambios() {
+		if (this.formProyecto.invalid) {
+			this.error = 'Los campos marcados son obligatorios'
+			this.formProyecto.markAllAsTouched()
+			return
+		}
+
+		this.error = null
+		const proyecto = this.formProyecto.getRawValue()
+		console.log(proyecto)
+
+		const { data, error } = await this._proyecto.actualizarProyecto(proyecto)
+
+		console.log(data)
+
+		this.loading.guardar = false
+
+		if (error) {
+			this.error = error.message
+
+			return
+		}
+
+		this.obtenerProyecto()
+	}
+
+	mostrarFormProyecto() {
+		this.colocarFormProyecto()
+		this.edicion = true
+	}
+
+	borrarCambios() {
+		this.colocarFormProyecto()
+		this.edicion = false
+	}
+
+	private colocarFormProyecto() {
+		this.formProyecto.setValue({
+			id: this.proyecto.id,
+			nombre: this.proyecto.nombre,
+			descripcion: this.proyecto.descripcion,
+			fechaInicio: this.proyecto.fechaInicio,
+			fechaFin: this.proyecto.fechaFin,
+			idEstado: this.proyecto.estado.id,
+			comentario: null,
+		})
 	}
 
 }

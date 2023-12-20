@@ -1,4 +1,4 @@
-<form [formGroup]="formComentario" class="grid w-full">
+<div class="grid w-full">
 
 	<ng-container *ngIf="error">
 		<div class="grid-col-12 border-1 border-solid border-red-700 bg-redgray px-10 py-7 rounded-sm">
@@ -13,35 +13,77 @@
 				class="w-50 h-50 display-block m-0 rounded-sm bg-theme-bluegray-200 border-0">
 
 			<div class="w-full">
-				<h4 class="font-bold display-block m-0">{{ proyecto.nombre }}</h4>
+				<ng-container *ngIf="!edicion; else tmpEdicionProyecto">
+					<div class="w-full flex items-center flex-no-wrap justify-between" style="gap: 1rem">
+						<h4 class="font-bold display-block m-0">{{ proyecto.nombre }}</h4>
 
-				<p class="display-block m-0 mb-7 text-gray-900">
-					{{ proyecto.descripcion }}
-				</p>
+						<button nz-button nzType="text" (click)="mostrarFormProyecto()">
+							<span nz-icon nzType="edit" nzTheme="outline"></span>
+						</button>
+					</div>
 
-				<div class="w-full">
-					<p class="font-medium display-inline-block m-0 mb-5">
-						Fecha de inicio: <b class="m-0 font-normal display-inline-block">{{ proyecto.fechaInicio ? (proyecto.fechaInicio | date:'dd-MM-yyyy') : 'Sin fecha registrada' }}</b>
-					</p>
-				</div>
-				<div class="w-full">
-					<p class="font-medium display-inline-block m-0 mb-5">
-						Fecha de fin: <b class="m-0 font-normal display-inline-block">{{ proyecto.fechaFin ? (proyecto.fechaFin | date:'dd-MM-yyyy') : 'Sin fecha registrada' }}</b>
-					</p>
-				</div>
-				<div class="w-full">
-					<p class="font-medium display-inline-block m-0 mb-5">
-						Estado:
-						<nz-tag [nzColor]="proyecto.estado.color">{{ proyecto.estado.descripcion }}</nz-tag>
+					<p class="display-block m-0 mb-7 text-gray-900">
+						{{ proyecto.descripcion }}
 					</p>
 
-					<ng-container *ngIf="false">
-						<p class="font-medium display-inline-block m-0 mb-5 flex items-center flex-no-wrap">
-							Estado:
-							<app-select-estado-proyecto formControlName="idEstado" class="ml-7" style="min-width: 50%;" [mostrarInactivos]="true"></app-select-estado-proyecto>
+					<div class="w-full">
+						<p class="font-medium display-inline-block m-0 mb-5">
+							Fecha de inicio: <b class="m-0 font-normal display-inline-block">{{ proyecto.fechaInicio ? (proyecto.fechaInicio | date:'dd-MM-yyyy') : 'Sin fecha registrada' }}</b>
 						</p>
-					</ng-container>
-				</div>
+					</div>
+					<div class="w-full">
+						<p class="font-medium display-inline-block m-0 mb-5">
+							Fecha de fin: <b class="m-0 font-normal display-inline-block">{{ proyecto.fechaFin ? (proyecto.fechaFin | date:'dd-MM-yyyy') : 'Sin fecha registrada' }}</b>
+						</p>
+					</div>
+					<div class="w-full">
+						<p class="font-medium display-inline-block m-0 mb-5">
+							Estado:
+							<nz-tag [nzColor]="proyecto.estado.color">{{ proyecto.estado.descripcion }}</nz-tag>
+						</p>
+					</div>
+				</ng-container>
+
+				<ng-template #tmpEdicionProyecto>
+					<form [formGroup]="formProyecto" class="pb-10 w-full grid" style="gap: 1.5rem">
+						<div class="grid-col-12">
+							<p class="font-medium display-inline-block m-0 mb-5">Nombre:</p>
+							<input type="text" nz-input formControlName="nombre" class="w-full">
+						</div>
+
+						<div class="grid-col-12">
+							<p class="font-medium display-inline-block m-0 mb-5">Descripción:</p>
+							<textarea nz-input formControlName="descripcion" class="w-full" rows="3"></textarea>
+						</div>
+
+						<div class="grid-col-6">
+							<p class="font-medium display-inline-block m-0 mb-5">Fecha inicio:</p>
+							<nz-date-picker formControlName="fechaInicio" class="w-full"></nz-date-picker>
+						</div>
+
+						<div class="grid-col-6">
+							<p class="font-medium display-inline-block m-0 mb-5">Fecha fin:</p>
+							<nz-date-picker formControlName="fechaFin" class="w-full"></nz-date-picker>
+						</div>
+
+						<div class="grid-col-12">
+							<p class="font-medium display-inline-block m-0 mb-5">Estado:</p>
+							<app-select-estado-proyecto formControlName="idEstado" class="w-full" [mostrarInactivos]="true"></app-select-estado-proyecto>
+						</div>
+
+						<div class="grid-col-12">
+							<p class="font-medium display-inline-block m-0 mb-5">Comentario:</p>
+							<textarea nz-input formControlName="comentario" class="w-full" rows="3"></textarea>
+						</div>
+
+						<div class="grid-col-6">
+							<button nz-button nzType="primary" [nzLoading]="loading.guardar" (click)="guardarCambios()" class="w-full">Guardar cambios</button>
+						</div>
+						<div class="grid-col-6">
+							<button nz-button nzType="primary" (click)="borrarCambios()" class="w-full">Cancelar</button>
+						</div>
+					</form>
+				</ng-template>
 			</div>
 
 		</div>
@@ -51,22 +93,13 @@
 		<div class="grid-col-12">
 			<ng-container *ngIf="proyecto">
 				<h4 class="font-medium display-block m-0 mb-10">Historial de cambios</h4>
-
-				<div class="w-full">
-					<textarea nz-input class="w-full mb-10" [rows]="3"></textarea>
-					<div class="w-full flex items-center" style="gap: 1rem">
-						<button nz-button nzType="primary">Enviar comentario</button>
-						<button nz-button nzType="text"
-							nz-tooltip nzTooltipTitle="Adjuntar archivo"><span nz-icon nzType="paper-clip" nzTheme="outline"></span></button>
-					</div>
-				</div>
 			</ng-container>
 
-			<div *ngIf="historial && historial.length > 0; else tmpNoHist" class="w-full pt-20 mt-15 grid">
+			<div *ngIf="historial && historial.length > 0; else tmpNoHist" class="w-full mt-15 grid">
 
 				<ng-container *ngFor="let h of historial">
 					<div class="grid-col-12 flex flex-no-wrap">
-						<img [src]="h.usuario.avatar" nz-tooltip [nzTooltipTitle]="h.usuario.nombre" class="rounded-full w-40 h-40 mr-10">
+						<img [src]="h.usuario.avatar" nz-tooltip [nzTooltipTitle]="h.usuario.nombre" class="rounded-full w-35 h-35 mr-10">
 
 						<div class="w-full">
 							<div class="w-full flex items-center flex-no-wrap mb-7">
@@ -76,7 +109,7 @@
 								</p>
 							</div>
 
-							<p class="display-block m-0 text-md">{{ h.comentario }}</p>
+							<p class="display-block m-0 text-md" [innerHTML]="h.comentario | break"></p>
 						</div>
 					</div>
 				</ng-container>
@@ -85,7 +118,7 @@
 		</div>
 	</ng-container>
 
-</form>
+</div>
 
 
 <ng-template #tmpLoading>
