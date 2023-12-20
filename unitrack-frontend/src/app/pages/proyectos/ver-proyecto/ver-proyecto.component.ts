@@ -85,9 +85,9 @@ export class VerProyectoComponent implements AfterViewInit {
 			return
 		}
 
+		this.loading.guardar = true
 		this.error = null
 		const proyecto = this.formProyecto.getRawValue()
-		console.log(proyecto)
 
 		const { data, error } = await this._proyecto.actualizarProyecto(proyecto)
 
