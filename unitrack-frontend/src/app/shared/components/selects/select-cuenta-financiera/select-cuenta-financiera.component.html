@@ -1,0 +1,27 @@
+<nz-select
+	class="w-full"
+	nzShowSearch
+	autocomplete="off"
+	[nzAllowClear]="!isDisabled"
+	[nzPlaceHolder]="isLoading ? 'Cargando cuentas...' : placeholder"
+	[disabled]="isDisabled"
+	[ngModel]="value"
+	(nzOnSearch)="obtenerCuentas($event)"
+	(ngModelChange)="change($event)"
+	[nzLoading]="isLoading"
+	[nzNotFoundContent]="error && !isLoading ? errorTmp : 'No hay información para mostrar'"
+	[nzStatus]="error ? 'warning' : ''">
+
+	<ng-container *ngIf="!isLoading">
+		<ng-container *ngFor="let cuenta of cuentas">
+			<nz-option [nzLabel]="cuenta.alias" [nzValue]="cuenta.id"></nz-option>
+		</ng-container>
+	</ng-container>
+
+	<nz-option *ngIf="isLoading" nzLabel="Cargando cuentas..." [nzValue]="null" nzDisabled></nz-option>
+</nz-select>
+
+<ng-template #errorTmp>
+	<p class="font-medium text-red-800 text-smd display-block m-0 text-center mb-5">Error al cargar las cuentas</p>
+	<p class="text-red-900 text-smd text-center display-block m-0">{{ error }}</p>
+</ng-template>

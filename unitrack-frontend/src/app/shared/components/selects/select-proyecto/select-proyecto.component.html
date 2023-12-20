@@ -1,0 +1,27 @@
+<nz-select
+	class="w-full"
+	nzShowSearch
+	autocomplete="off"
+	[nzAllowClear]="!isDisabled"
+	[nzPlaceHolder]="isLoading ? 'Cargando proyectos...' : placeholder"
+	[disabled]="isDisabled"
+	[ngModel]="value"
+	(nzOnSearch)="obtenerProyectos($event)"
+	(ngModelChange)="change($event)"
+	[nzLoading]="isLoading"
+	[nzNotFoundContent]="error && !isLoading ? errorTmp : 'No hay información para mostrar, digite un nombre para su búqueda'"
+	[nzStatus]="error ? 'warning' : ''">
+
+	<ng-container *ngIf="!isLoading">
+		<ng-container *ngFor="let proyecto of proyectos">
+			<nz-option [nzLabel]="proyecto.nombre" [nzValue]="proyecto.id"></nz-option>
+		</ng-container>
+	</ng-container>
+
+	<nz-option *ngIf="isLoading" nzLabel="Cargando proyectos..." [nzValue]="null" nzDisabled></nz-option>
+</nz-select>
+
+<ng-template #errorTmp>
+	<p class="font-medium text-red-800 text-smd display-block m-0 text-center mb-5">Error al cargar los proyectos</p>
+	<p class="text-red-900 text-smd text-center display-block m-0">{{ error }}</p>
+</ng-template>

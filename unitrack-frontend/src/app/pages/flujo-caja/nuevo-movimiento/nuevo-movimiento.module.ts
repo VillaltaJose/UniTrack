@@ -6,6 +6,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { SelectCuentaFinancieraModule } from 'src/app/shared/components/selects/select-cuenta-financiera/select-cuenta-financiera.module';
+import { SelectProyectoModule } from 'src/app/shared/components/selects/select-proyecto/select-proyecto.module';
 
 @NgModule({
 	declarations: [NuevoMovimientoComponent],
@@ -18,6 +20,8 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 		NzSelectModule,
 		NzButtonModule,
 		NzInputNumberModule,
+		SelectCuentaFinancieraModule,
+		SelectProyectoModule,
 	],
 })
 export class NuevoMovimientoModule {}

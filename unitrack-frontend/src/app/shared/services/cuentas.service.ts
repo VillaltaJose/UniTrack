@@ -28,6 +28,23 @@ export class CuentasService {
 		return resp
 	}
 
+	async obtenerCuentasSelect(filters: any) {
+		const resp = await this._supabase.client.functions.invoke('listar-cuentas-select',
+			{
+				headers: {
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
+				},
+				body: filters
+			});
+
+		if (resp.error) {
+			const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+			resp.error.message = errResponse || resp.error.message
+		}
+
+		return resp
+	}
+
 	async agregarCuenta(cuenta: any) {
 		try {
 			const resp = await this._supabase.client.functions.invoke('agregar-cuenta',
@@ -49,6 +66,23 @@ export class CuentasService {
 		} catch (err: any) {
 			return {error: {message: err.toString()}, data: null}
 		}
+	}
+
+	async obtenerMovimientos(filters: any) {
+		const resp = await this._supabase.client.functions.invoke('listar-movimientos',
+			{
+				headers: {
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
+				},
+				body: filters
+			});
+
+		if (resp.error) {
+			const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+			resp.error.message = errResponse || resp.error.message
+		}
+
+		return resp
 	}
 
 }

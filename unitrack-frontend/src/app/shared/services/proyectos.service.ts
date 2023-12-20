@@ -29,6 +29,23 @@ export class ProyectosService {
 		return resp
 	}
 
+	async obtenerProyectosSelect(filters: any) {
+		const resp = await this._supabase.client.functions.invoke('listar-proyectos-select',
+			{
+				headers: {
+					'Id-Directiva': this._storage.getStorage(StorageKeys.ID_DIRECTIVA)
+				},
+				body: filters
+			});
+
+		if (resp.error) {
+			const errResponse = JSON.parse(await new Response(resp.error.context.body).text())
+			resp.error.message = errResponse || resp.error.message
+		}
+
+		return resp
+	}
+
 	async crearProyecto(proyecto: any) {
 		try {
 			const resp = await this._supabase.client.functions.invoke('agregar-proyecto',

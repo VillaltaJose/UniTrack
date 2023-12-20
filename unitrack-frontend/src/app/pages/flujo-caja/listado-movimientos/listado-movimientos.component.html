@@ -36,10 +36,17 @@
 				</div>
 			</div>
 
-			<nz-table #nzTable nzSize="small" [nzData]="[1,1,1]" [nzPageSize]="10">
+			<ng-container *ngIf="error">
+				<div class="w-full mt-7 mb-15 rounded-sm border-solid border-1 border-red-800 bg-redgray px-10 py-7">
+					<p class="display-block m-0 text-red-800">{{ error }}</p>
+				</div>
+			</ng-container>
+
+			<nz-table #nzTable nzSize="small" [nzData]="movimientos" [nzLoading]="loading" [nzPageSize]="100">
 				<thead>
 					<tr>
-						<th style="text-align: center;">ID</th>
+						<!-- <th style="text-align: center;">ID</th> -->
+						<th>Fecha</th>
 						<th>Movimiento</th>
 						<th>Realizado por</th>
 						<th>Cuenta</th>
@@ -48,23 +55,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let i of nzTable.data">
-						<td class="text-center font-medium min-size px-5">1234</td>
+					<tr *ngFor="let m of nzTable.data">
+						<!-- <td class="text-center font-medium min-size px-5">1234</td> -->
+						<td class="min-size">{{ m.fecha | date:'dd-MM-yyyy hh:mm' }}</td>
+						<td>{{ m.motivo }}</td>
 						<td>
 							<div class="flex items-center flex-no-wrap">
-								<img src="https://api.dicebear.com/7.x/initials/svg?seed=Proyecto%201" class="display-block m-0 mr-7 rounded-sm w-30 h-30">
-								<p class="display-block m-0">Descripcion movimiento</p>
+								<img [src]="m.usuario.avatar" class="display-block m-0 mr-7 rounded-full w-30 h-30">
+								<p class="display-block m-0">{{ m.usuario.nombre }}</p>
 							</div>
 						</td>
-						<td>
-							<div class="flex items-center flex-no-wrap">
-								<img src="https://api.dicebear.com/7.x/initials/svg?seed=Nombre%20Persona" class="display-block m-0 mr-7 rounded-full w-30 h-30">
-								<p class="display-block m-0">Nombre Persona</p>
-							</div>
-						</td>
-						<td>Gastos Generales</td>
-						<td [ngClass]="{'text-green': 10 >= 0, 'text-red': 10 < 0}">{{ 10 | currency }}</td>
+						<td>{{ m.cuenta.alias }}</td>
+						<td [ngClass]="{'text-green': m.monto >= 0, 'text-red': m.monto < 0}">{{ m.monto | currency }}</td>
 						<td class="min-size">
+							<button nz-tooltip nzTooltipTitle="Copiar ID" nz-button nzType="text" nzSize="small">
+								<span nz-icon nzType="copy" nzTheme="outline"></span>
+							</button>
 							<button nz-tooltip nzTooltipTitle="Ver factura" nz-button nzType="text" nzSize="small">
 								<span nz-icon nzType="file-text" nzTheme="outline"></span>
 							</button>

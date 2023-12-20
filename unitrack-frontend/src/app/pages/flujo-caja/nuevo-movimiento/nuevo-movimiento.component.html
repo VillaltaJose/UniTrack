@@ -10,17 +10,22 @@
 
 	<div class="grid-col-12">
 		<p class="display-block m-0 mb-5">Proyecto</p>
-		<input type="text" nz-input placeholder="Ej. Cuenta de José" />
+		<app-select-proyecto formControlName="idProyecto" class="w-full"></app-select-proyecto>
+	</div>
+
+	<div class="grid-col-12">
+		<p class="display-block m-0 mb-5">Cuenta</p>
+		<app-select-cuenta-financiera formControlName="idCuenta" class="w-full"></app-select-cuenta-financiera>
 	</div>
 
 	<div class="grid-col-12">
 		<p class="display-block m-0 mb-5">Motivo / Justificación / Destino</p>
-		<textarea nz-input class="w-full" rows="7"></textarea>
+		<textarea nz-input class="w-full" formControlName="motivo" rows="7"></textarea>
 	</div>
 
 	<div class="grid-col-6">
 		<p class="display-block m-0 mb-5">Tipo de movimiento:</p>
-		<nz-select name="value" class="w-full">
+		<nz-select name="value" class="w-full" formControlName="tipoMovimiento">
 			<nz-option nzLabel="Ingreso" nzValue="I">
 			</nz-option>
 			<nz-option nzLabel="Egreso" nzValue="E">
@@ -30,7 +35,7 @@
 
 	<div class="grid-col-6">
 		<p class="display-block m-0 mb-5">Monto</p>
-		<nz-input-number nzPlaceHolder="0.00" class="w-full" [nzMin]="0.01"></nz-input-number>
+		<nz-input-number formControlName="monto" nzPlaceHolder="0.00" class="w-full" [nzMin]="0.01"></nz-input-number>
 	</div>
 
 	<div class="grid-col-12">
